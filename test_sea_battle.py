@@ -1,5 +1,5 @@
 import unittest
-from sea_battle import SeaBattleBoard
+from sea_battle import SeaBattleBoard, SeaBattleEnvironment
 
 def has_right_ship_count(board: SeaBattleBoard) -> bool:
     squares_occupied = set()
@@ -46,11 +46,21 @@ def no_adjacent_ships(board: SeaBattleBoard) -> bool:
                         return False
     return True
 
-
     
 def is_valid_board(board):
     return has_right_ship_count(board) and no_adjacent_ships(board)
 
+def test_env():
+    env = SeaBattleEnvironment()
+    done = False
+    tot_reward = 0
+    action = 0
+    while not done:
+        _, reward, done, _ = env.step(action)
+        env.render()
+        action += 1
+        tot_reward += reward
+        print(f"total reward: {tot_reward}")
 
 class TestSeaBattleBoard(unittest.TestCase):
     def test_place_ships_randomly(self):
@@ -65,5 +75,7 @@ class TestSeaBattleBoard(unittest.TestCase):
                 self.assertTrue(is_valid_board(board))
 
 
+
 if __name__ == '__main__':
-    unittest.main()
+    # unittest.main()
+    test_env()
