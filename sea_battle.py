@@ -1,5 +1,8 @@
 import random
 import unittest
+import gym
+from gym import spaces
+import numpy as np
 
 class SeaBattleBoard:
     def __init__(self):
@@ -121,7 +124,7 @@ class SeaBattleBoard:
         else:
             return "invalid"
 
-    def reveal_surrounding_squares(self, ship: dict) -> None:
+    def reveal_surrounding_squares(self, ship: dict):
         """
         Reveal the surrounding squares of a sunken ship on the board.
         
@@ -253,3 +256,55 @@ class SeaBattleGame:
         """
         if self.board.is_game_over():
             self.game_over = True
+
+class SeaBattleEnvironment(gym.Env):
+    def __init__(self):
+        super(SeaBattleEnvironment, self).__init__()
+
+        self.board = SeaBattleBoard()
+
+        # Define action and observation spaces
+        self.action_space = spaces.Discrete(self.board.board_size * self.board.board_size)
+        self.observation_space = spaces.Box(low=0, high=3, shape=(self.board.board_size, self.board.board_size), dtype=np.uint8)
+
+    def step(self, action):
+        row, col = divmod(action, self.board.board_size)
+        result = self.board.attack_square(row, col)
+
+        if result == 'hit':
+            reward = 1
+        elif result == 'sunk':
+            reward = 3
+        else:
+            reward = -1
+
+        done = self.board.is_game_over()
+        observation = self._get_observation()
+        info = {}
+
+        return observation, reward, done, info
+
+    def reset(self):
+        self.board = SeaBattleBoard()
+        return self._get_observation()
+
+    def _get_observation(self):
+        observation = np.zeros((self.board.board_size, self.board.board_size), dtype=np.uint8)
+        for i, row in enumerate(self.board.board):
+            for j, cell in enumerate(row):
+                if cell == '.':
+                    observation[i, j] = 0
+                elif cell == 'S':
+                    observation[i, j] = 1
+                elif cell == 'M':
+                    observation[i, j] = 2
+                elif cell == 'X':
+                    observation[i, j] = 3
+        return observation
+
+    def render(self, mode='human'):
+        # You can implement a rendering method here if you want to visualize the game during training
+        print("  " + " ".join(str(i) for i in range(self.board.board_size)))
+        for i, row in enumerate(self.board.board):
+            print(str(i) + " " + " ".join(cell if cell != "S" else "." for cell in row))
+        pass
