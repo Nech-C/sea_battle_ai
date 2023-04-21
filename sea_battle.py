@@ -3,11 +3,19 @@ import unittest
 import gym
 from gym import spaces
 import numpy as np
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import numpy as np
+from collections import deque
+
+
+
 
 class SeaBattleBoard:
     def __init__(self):
         """Initialize the Sea Battle board and place ships randomly."""
-        self.board_size: int  = 8
+        self.board_size: int  = 7
         self.ships: list[dict[str, any]] = [
             {"size": 4, "location": [], "hits": 0},
             {"size": 3, "location": [], "hits": 0},
@@ -177,12 +185,21 @@ class SeaBattleGame:
         self.board = SeaBattleBoard()
         self.game_over = False
 
-    def start_game(self):
+    def start_game(self, model=None, device=None):
         """Start the game and execute the main game loop."""
         print("Welcome to Sea Battle!")
         self.print_board()
 
         while not self.game_over:
+            if model is not None and device is not None:
+                state = self._get_observation().flatten()
+                state_tensor = torch.tensor(state, dtype=torch.float32).to(device)
+                action_values = model(state_tensor.unsqueeze(0))
+                action_values_reshaped = action_values.reshape(7, 7)
+                action_values_numpy = action_values_reshaped.cpu().detach().numpy()
+                x_norm = (action_values_numpy-np.min(action_values_numpy))/(np.max(action_values_numpy)-np.min(action_values_numpy))
+                for row in x_norm:
+                        print("\t".join("{:.2f}".format(i) for i in row))
             row, col = self.get_player_move()
             result = self.board.attack_square(row, col)
             self.print_result(result)
@@ -199,6 +216,20 @@ class SeaBattleGame:
         for i, row in enumerate(self.board.board):
             print(str(i) + " " + " ".join(cell if cell != "S" else "." for cell in row))
 
+    def _get_observation(self):
+        observation = np.zeros((self.board.board_size, self.board.board_size), dtype=np.uint8)
+        for i, row in enumerate(self.board.board):
+            for j, cell in enumerate(row):
+                if cell == '.':
+                    observation[i, j] = 0
+                elif cell == 'S':
+                    observation[i, j] = 1
+                elif cell == 'M':
+                    observation[i, j] = 2
+                elif cell == 'X':
+                    observation[i, j] = 3
+        return observation
+    
     def get_player_move(self):
         """
         Get the player's move (row and column) from the console.
@@ -257,6 +288,29 @@ class SeaBattleGame:
         if self.board.is_game_over():
             self.game_over = True
 
+class UnrevealedSquaresSpace(gym.Space):
+    def __init__(self, board):
+        self.board = board
+        super().__init__(shape=None, dtype=np.int)
+
+    def sample(self):
+        unrevealed_squares = []
+        for i, row in enumerate(self.board.board):
+            for j, cell in enumerate(row):
+                if cell not in ['M', 'X']:
+                    unrevealed_squares.append((i, j))
+
+        if unrevealed_squares:
+            selected_square = np.random.choice(len(unrevealed_squares))
+            row, col = unrevealed_squares[selected_square]
+            return row * self.board.board_size + col
+        else:
+            raise ValueError("No unrevealed squares left")
+
+    def contains(self, x):
+        return 0 <= x < self.board.board_size * self.board.board_size
+
+
 class SeaBattleEnvironment(gym.Env):
     def __init__(self):
         super(SeaBattleEnvironment, self).__init__()
@@ -264,7 +318,7 @@ class SeaBattleEnvironment(gym.Env):
         self.board = SeaBattleBoard()
 
         # Define action and observation spaces
-        self.action_space = spaces.Discrete(self.board.board_size * self.board.board_size)
+        self.action_space = UnrevealedSquaresSpace(self.board)
         self.observation_space = spaces.Box(low=0, high=3, shape=(self.board.board_size, self.board.board_size), dtype=np.uint8)
 
     def step(self, action):
@@ -272,13 +326,19 @@ class SeaBattleEnvironment(gym.Env):
         result = self.board.attack_square(row, col)
 
         if result == 'hit':
-            reward = 1
+            reward = 0
         elif result == 'sunk':
-            reward = 3
-        else:
+            reward = 0
+        elif result == 'miss':
             reward = -1
+        else:
+            reward = -100
 
         done = self.board.is_game_over()
+        
+        if done:
+            reward = 10000
+        
         observation = self._get_observation()
         info = {}
 
@@ -307,4 +367,4 @@ class SeaBattleEnvironment(gym.Env):
         print("  " + " ".join(str(i) for i in range(self.board.board_size)))
         for i, row in enumerate(self.board.board):
             print(str(i) + " " + " ".join(cell if cell != "S" else "." for cell in row))
-        pass
+
