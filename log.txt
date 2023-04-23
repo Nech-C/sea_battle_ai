@@ -1,0 +1,12 @@
+4/9 made good progress. Used chatgpt to implement the basic game with gui. Still need to make adjustments
+
+4/19 decided to build a qdn as the first model. Implemented SeaBattleEnv for qdn. Found issue with ship placement function which places ship next to other ships, which is forbidden in the GamePigeon version of sea battle.
+
+4/20 trained the first qdn model. doesn't seem to work well(always chooses invalid actions and get stuck).Debugging.
+
+4/21 the probelm is likely to be the reward for ending the game is not set to a high value; instead, it was treated the same as choosing the wrong action.
+     the version is name 0.1. 
+     the new envrionment with a new batch size of 512 doesn't seem to converge well; random spikes of high loss. training ongoing
+     the new ver 0.11 shows no improvement over 0.1
+     training new model with larger hidden layers still doesn't seem to converge, steps to complete is ~200 (49*10 for maximum)
+     next improvement: one-hot encoding and use the last action chosen as part of the input.
