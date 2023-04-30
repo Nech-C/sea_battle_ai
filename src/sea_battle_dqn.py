@@ -9,10 +9,10 @@ from collections import deque
 from sea_battle import SeaBattleBoard, SeaBattleEnvironment
 
 # Constants
-BUFFER_SIZE = 10000
+BUFFER_SIZE = 15000
 NUM_SQUARES = 49
 NUM_EPISODES = 2500
-BATCH_SIZE = 2048
+BATCH_SIZE = 1024
 GAMMA = 0.99
 EPSILON = 1.0
 EPSILON_MIN = 0.01
@@ -40,11 +40,9 @@ class ReplayBuffer:
 
 
 class DeepQNetwork(nn.Module):
-    """A deep Q-network implementation."""
-
     def __init__(self, num_squares, device, hidden_layer_size=HIDDEN_LAYER_SIZE):
         super(DeepQNetwork, self).__init__()
-        self.fc1 = nn.Linear(num_squares, hidden_layer_size[0])
+        self.fc1 = nn.Linear(num_squares * 5, hidden_layer_size[0])
         self.fc2 = nn.Linear(hidden_layer_size[0], hidden_layer_size[1])
         self.fc3 = nn.Linear(hidden_layer_size[1], num_squares)
         self.to(device)
@@ -55,6 +53,26 @@ class DeepQNetwork(nn.Module):
         x = self.fc3(x)
         return x
 
+def state_to_one_hot(state, last_action=None):
+    num_squares = state.size
+    one_hot_state = np.zeros((num_squares, 5), dtype=np.float32)
+
+    for i, square in enumerate(state):
+        if square == -1:
+            one_hot_state[i, 0] = 1
+        elif square == 0:
+            one_hot_state[i, 1] = 1
+        elif square == 1:
+            one_hot_state[i, 2] = 1
+        elif square == 2:
+            one_hot_state[i, 3] = 1
+
+        if last_action == i and square != -1:
+            one_hot_state[i, 4] = 1
+        else:
+            one_hot_state[i, 4] = 0
+
+    return one_hot_state.flatten()
 
 def choose_action(state, dqn, device, epsilon, env, invalid_action_count):
     """Choose an action based on the current state, epsilon value and DQN."""
@@ -66,7 +84,6 @@ def choose_action(state, dqn, device, epsilon, env, invalid_action_count):
         q_values = dqn(state_tensor.unsqueeze(0))
         action = torch.argmax(q_values).item()
     return action
-
 
 def update_dqn(dqn, memory, optimizer, device, batch_size=BATCH_SIZE, gamma=GAMMA):
     """Update the DQN based on a batch of experiences from the memory buffer."""
@@ -88,7 +105,8 @@ def update_dqn(dqn, memory, optimizer, device, batch_size=BATCH_SIZE, gamma=GAMM
     loss.backward()
     optimizer.step()
 
-    return loss.item
+    return loss.item()
+
 def train_dqn(dqn, device, num_episodes=NUM_EPISODES, batch_size=BATCH_SIZE, gamma=GAMMA, epsilon=EPSILON, epsilon_min=EPSILON_MIN, epsilon_decay=EPSILON_DECAY, learning_rate=LEARNING_RATE):
     """Train the DQN with the given hyperparameters."""
 
@@ -98,6 +116,7 @@ def train_dqn(dqn, device, num_episodes=NUM_EPISODES, batch_size=BATCH_SIZE, gam
 
     for episode in range(num_episodes):
         state = env.reset().flatten()
+        state = state_to_one_hot(state)
         done = False
         steps_to_complete = 0
         invalid_action_count = 0
@@ -106,7 +125,7 @@ def train_dqn(dqn, device, num_episodes=NUM_EPISODES, batch_size=BATCH_SIZE, gam
         while not done:
             action = choose_action(state, dqn, device, epsilon, env, invalid_action_count)
             next_state, reward, done, _ = env.step(action=action)
-            next_state = next_state.flatten()
+            next_state = state_to_one_hot(next_state.flatten(), action)
 
             if np.array_equal(state, next_state):
                 invalid_action_count += 1
@@ -126,17 +145,12 @@ def train_dqn(dqn, device, num_episodes=NUM_EPISODES, batch_size=BATCH_SIZE, gam
         if epsilon > epsilon_min:
             epsilon *= epsilon_decay
 
-
 def save_dqn(dqn, model_path="trained_model.pth"):
     """Save the DQN model to the specified path."""
 
     torch.save(dqn.state_dict(), model_path)
 
-
-import argparse
-import os
-
-def test(dqn, device, num_test_episodes=100, max_steps=30):
+def test(dqn, device, num_test_episodes=100, max_steps=30, random_play=False):
     env = SeaBattleEnvironment()
     rewards = []
     steps = []
@@ -144,18 +158,25 @@ def test(dqn, device, num_test_episodes=100, max_steps=30):
     for episode in range(num_test_episodes):
         state = env.reset()
         state = state.flatten()
+        state = state_to_one_hot(state)
         episode_reward = 0
         done = False
         episode_steps = 0
 
         while not done and episode_steps < max_steps:
-            state_tensor = torch.tensor(state, dtype=torch.float32).to(device)
-            with torch.no_grad():
-                action_tensor = dqn(state_tensor.unsqueeze(0)).argmax(dim=1)
+            if random_play:
+                # Choose a random valid action
+                action = env.get_random_valid_action()
+            else:
+                state_tensor = torch.tensor(state, dtype=torch.float32).to(device)
+                with torch.no_grad():
+                    action_tensor = dqn(state_tensor.unsqueeze(0)).argmax(dim=1)
 
-            action = int(action_tensor.item())
+                action = int(action_tensor.item())
+                
             next_state, reward, done, _ = env.step(action)
             next_state = next_state.flatten()
+            next_state = state_to_one_hot(next_state)
 
             episode_reward += reward
             state = next_state
@@ -170,16 +191,19 @@ def test(dqn, device, num_test_episodes=100, max_steps=30):
     print(f"Average steps to finish the game over {num_test_episodes} episodes: {average_steps:.2f}")
     return average_reward, average_steps
 
-
 def main():
     # Create an argument parser
-    parser = argparse.ArgumentParser(description="Train and test Sea Battle DQN")
-    parser.add_argument("action", choices=["train", "test"], help="Action to perform, train or test the DQN model")
-    parser.add_argument("episodes", type=int, help="Number of episodes for training or testing")
-    parser.add_argument("model_path", help="Path to the model file")
-
-    # Parse the arguments
+    import argparse
+# ...
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Sea Battle DQN")
+    parser.add_argument("command", choices=["train", "test"], help="either 'train' or 'test'")
+    parser.add_argument("episodes", type=int, help="number of episodes to run")
+    parser.add_argument("model_path", help="path to the model file")
+    parser.add_argument("--random", action="store_true", help="use random actions for testing")
     args = parser.parse_args()
+
+
 
     # Create the DQN model
     dqn = DeepQNetwork(NUM_SQUARES, device)
@@ -192,8 +216,9 @@ def main():
         dqn.load_state_dict(torch.load(args.model_path))
         dqn.to(device)
         dqn.eval()
-        average_reward, average_steps = test(dqn, device, num_test_episodes=args.episodes)
+        average_reward, average_steps = test(dqn, device, num_test_episodes=args.episodes, random_play=args.random)
         print(f"Average reward: {average_reward}, Average steps: {average_steps}")
 
 if __name__ == "__main__":
     main()
+

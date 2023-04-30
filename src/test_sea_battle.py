@@ -53,8 +53,7 @@ def no_adjacent_ships(board: SeaBattleBoard) -> bool:
                     if other_ship != ship and adjacent_square in other_ship["location"]:
                         return False
     return True
-
-    
+   
 def is_valid_board(board):
     return has_right_ship_count(board) and no_adjacent_ships(board)
 
