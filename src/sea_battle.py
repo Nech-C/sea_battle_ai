@@ -1,16 +1,15 @@
 import random
 import unittest
 import gym
-from gym import spaces
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
+from gym import spaces
 from collections import deque
-
-
-
+from lib.utils import state_to_one_hot_3
+from lib.constants import CELL_MAPPING
 
 class SeaBattleBoard:
     def __init__(self):
@@ -22,7 +21,8 @@ class SeaBattleBoard:
             {"size": 2, "location": [], "hits": 0},
             {"size": 1, "location": [], "hits": 0}
         ]
-        self.board: list[list[str]] = [['.' for _ in range(self.board_size)] for _ in range(self.board_size)]
+        self.cell_mapping = CELL_MAPPING
+        self.board: np.ndarray = np.full((self.board_size, self.board_size), self.cell_mapping['empty'], dtype=np.uint8)
         self.steps: int = 0 # Used to track the number of steps taken.
         self.place_ships_randomly()
 
@@ -77,7 +77,7 @@ class SeaBattleBoard:
         Returns:
         bool: True if the square is empty, False otherwise.
         """
-        if self.board[row][col] == '.':
+        if self.board[row, col] == self.cell_mapping['empty']:
             return True
         return False
 
@@ -97,14 +97,14 @@ class SeaBattleBoard:
         ship_location: list[tuple[int, int]] = []
         if orientation == 'horizontal':
             for i in range(col, col + ship_size):
-                self.board[row][i] = 'S'
+                self.board[row, i] = self.cell_mapping['ship']
                 ship_location.append((row, i))
         else:
             for i in range(row, row + ship_size):
-                self.board[i][col] = 'S'
+                self.board[i, col] = self.cell_mapping['ship']
                 ship_location.append((i, col))
         return ship_location
-
+    
     def attack_square(self, row, col):
         """
         Attack the square at the given row and column.
@@ -116,8 +116,8 @@ class SeaBattleBoard:
         Returns:
         str: 'hit', 'miss', 'sunk', or 'invalid' depending on the result of the attack.
         """
-        if self.board[row][col] == 'S':
-            self.board[row][col] = 'X'
+        if self.board[row, col] == self.cell_mapping['ship']:
+            self.board[row, col] = self.cell_mapping['hit']
             for ship in self.ships:
                 if (row, col) in ship["location"]:
                     ship["hits"] += 1
@@ -126,25 +126,24 @@ class SeaBattleBoard:
                         return "sunk"
                     else:
                         return "hit"
-        elif self.board[row][col] == '.':
-            self.board[row][col] = 'M'
+        elif self.board[row, col] == self.cell_mapping['empty']:
+            self.board[row, col] = self.cell_mapping['miss']
             return "miss"
         else:
             return "invalid"
-
     def reveal_surrounding_squares(self, ship: dict):
         """
-        Reveal the surrounding squares of a sunken ship on the board.
-        
-        Args:
-        ship (dict): The sunken ship, represented as a dictionary with keys 'size', 'location', and 'hits'.
-        """
+    Reveal the surrounding squares of a sunken ship on the board.
+    
+    Args:
+    ship (dict): The sunken ship, represented as a dictionary with keys 'size', 'location', and 'hits'.
+    """
         for row, col in ship["location"]:
             for dr in range(-1, 2):
                 for dc in range(-1, 2):
                     r, c = row + dr, col + dc
-                    if 0 <= r < self.board_size and 0 <= c < self.board_size and self.board[r][c] == '.':
-                        self.board[r][c] = 'M'
+                    if 0 <= r < self.board_size and 0 <= c < self.board_size and self.board[r, c] == self.cell_mapping['empty']:
+                        self.board[r, c] = self.cell_mapping['miss']
     
     def is_ship_sunk(self, ship):
         """
@@ -187,14 +186,39 @@ class SeaBattleBoard:
         int: The number of unexplored squares on the board.
         """
         return self.board.count('.')
+    def render(self, mode='human'):
+        print("  " + " ".join(str(i) for i in range(self.board_size)))
+        for i, row in enumerate(self.board):
+            print(str(i) + " " + " ".join(self._cell_repr(cell) for cell in row))
 
+    def _cell_repr(self, cell_value):
+        """
+        Get the string representation of the cell value.
+        
+        Args:
+        cell_value (uint8): The cell value.
+        
+        Returns:
+        str: The string representation of the cell value.
+        """
+        if cell_value == self.cell_mapping['empty']:
+            return '.'
+        elif cell_value == self.cell_mapping['ship']:
+            return 'S'
+        elif cell_value == self.cell_mapping['miss']:
+            return 'M'
+        elif cell_value == self.cell_mapping['hit']:
+            return 'X'
+        
 class SeaBattleGame:
+    """_summary_ an interactive version of the simplied game
+    """
     def __init__(self):
         """Initialize the Sea Battle game."""
         self.board = SeaBattleBoard()
         self.game_over = False
 
-    def start_game(self, model=None, device=None):
+    def start_game(self, model=None, device=None, onehot=None):
         """Start the game and execute the main game loop."""
         print("Welcome to Sea Battle!")
         self.print_board()
@@ -202,6 +226,8 @@ class SeaBattleGame:
         while not self.game_over:
             if model is not None and device is not None:
                 state = self._get_observation().flatten()
+                if onehot is not None:
+                    state = onehot(state)
                 state_tensor = torch.tensor(state, dtype=torch.float32).to(device)
                 action_values = model(state_tensor.unsqueeze(0))
                 action_values_reshaped = action_values.reshape(7, 7)
@@ -221,22 +247,19 @@ class SeaBattleGame:
         """
         Print the current state of the board to the console.
         """
+        cell_map = {0: '.', 1: '.', 2: 'M', 3: 'X'}
         print("  " + " ".join(str(i) for i in range(self.board.board_size)))
         for i, row in enumerate(self.board.board):
-            print(str(i) + " " + " ".join(cell if cell != "S" else "." for cell in row))
+            print(str(i) + " " + " ".join(cell_map[cell] for cell in row))
 
     def _get_observation(self):
-        observation = np.zeros((self.board.board_size, self.board.board_size), dtype=np.uint8)
-        for i, row in enumerate(self.board.board):
-            for j, cell in enumerate(row):
-                if cell == '.':
-                    observation[i, j] = 0
-                elif cell == 'S':
-                    observation[i, j] = 1
-                elif cell == 'M':
-                    observation[i, j] = 2
-                elif cell == 'X':
-                    observation[i, j] = 3
+        """
+        Get the observation of the current state of the board.
+        
+        Returns:
+        np.ndarray: An array representing the current state of the board.
+        """
+        observation = np.copy(self.board.board)
         return observation
     
     def get_player_move(self):
@@ -319,40 +342,37 @@ class UnrevealedSquaresSpace(gym.Space):
     def contains(self, x):
         return 0 <= x < self.board.board_size * self.board.board_size
 
-
 class SeaBattleEnvironment(gym.Env):
-    def __init__(self):
+    def __init__(self, rewards={'hit': 0, 'sunk':0, 'miss':-0.01,'other': -1, 'done':1}):
         super(SeaBattleEnvironment, self).__init__()
-
         self.board = SeaBattleBoard()
-
         # Define action and observation spaces
         self.action_space = UnrevealedSquaresSpace(self.board)
         self.observation_space = spaces.Box(low=0, high=3, shape=(self.board.board_size, self.board.board_size), dtype=np.uint8)
+        self.rewards=rewards
 
     def step(self, action):
         row, col = divmod(action, self.board.board_size)
         result = self.board.attack_square(row, col)
-        
+        # print(f"Attacked square: {row}, {col}")
         if result == 'hit':
-            reward = 0
+            reward = self.rewards['hit']
         elif result == 'sunk':
-            reward = 0
+            reward = self.rewards['sunk']
         elif result == 'miss':
-            # unexplored_squares = self.board.num_unexpolored_squares()
-            # reward = 1.00012**(22*unexplored_squares)-1
-            reward = -0.01
+            reward = self.rewards['miss']
         else:
-            reward = -1
+            reward = self.rewards['other']
 
         done = self.board.is_game_over()
         
         if done:
-            reward = 1
+            reward = self.rewards['done']
         
         observation = self._get_observation()
         info = {}
-
+        # print(self.board.board)
+        # print(state_to_one_hot_3(observation).reshape(-1,3))
         return observation, reward, done, info
 
     def reset(self):
@@ -360,24 +380,25 @@ class SeaBattleEnvironment(gym.Env):
         return self._get_observation()
 
     def _get_observation(self):
-        observation = np.zeros((self.board.board_size, self.board.board_size), dtype=np.uint8)
-        for i, row in enumerate(self.board.board):
-            for j, cell in enumerate(row):
-                if cell == '.':
-                    observation[i, j] = 0
-                elif cell == 'S':
-                    observation[i, j] = 1
-                elif cell == 'M':
-                    observation[i, j] = 2
-                elif cell == 'X':
-                    observation[i, j] = 3
+        """
+        Get the observation of the current state of the board. note that 0 is unknow(empty or ship),
+        2 is miss, and 3 is hit.
+        Returns:
+        np.ndarray: An array representing the current state of the board.
+        """
+        observation = np.copy(self.board.board)
+        observation[observation == CELL_MAPPING['ship']] = 0
         return observation
 
     def render(self, mode='human'):
-        # You can implement a rendering method here if you want to visualize the game during training
         print("  " + " ".join(str(i) for i in range(self.board.board_size)))
         for i, row in enumerate(self.board.board):
-            print(str(i) + " " + " ".join(cell if cell != "S" else "." for cell in row))
+            print(str(i) + " " + " ".join(self._cell_repr(cell) for cell in row))
+            
+    def _cell_repr(self, cell):
+        cell_map = {0: '.', 1: '.', 2: 'M', 3: 'X'}
+        return cell_map[cell]
+
             
     def get_random_valid_action(self):
         """

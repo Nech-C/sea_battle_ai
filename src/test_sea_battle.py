@@ -1,13 +1,16 @@
 import unittest
-from sea_battle import SeaBattleBoard, SeaBattleEnvironment, SeaBattleGame
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 import gym
-from collections import deque
 import random
-from sea_battle_dqn import DeepQNetwork
+import sys
+sys.path.append('/home/nech/projects/python_projects/sea_battle_ai')
+from lib.utils import state_to_one_hot_3
+from sea_battle import SeaBattleBoard, SeaBattleEnvironment, SeaBattleGame
+from collections import deque
+
 
 def has_right_ship_count(board: SeaBattleBoard) -> bool:
     squares_occupied = set()
@@ -43,7 +46,6 @@ def get_adjacent_squares(square):
 
     return adjacent_squares
 
-
 def no_adjacent_ships(board: SeaBattleBoard) -> bool:
     for ship in board.ships:
         for square in ship["location"]:
@@ -69,14 +71,16 @@ def test_env():
         tot_reward += reward
         print(f"total reward: {tot_reward}")
 
-def test_model(hidden_layer_size):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = DeepQNetwork(49, device, hidden_layer_size)
-    model.load_state_dict(torch.load("trained_model.pth"))
+# def test_model(hidden_layer_size):
+#     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#     model = DeepQNetwork(49, device, hidden_layer_size)  # Change 49 to 49 * 5
+#     model.load_state_dict(torch.load("models/dqn_ver0.2.2.pth"))
 
-    for _ in range(3):
-        game:  SeaBattleGame  = SeaBattleGame()
-        game.start_game(model, device)
+
+#     for _ in range(3):
+#         game:  SeaBattleGame  = SeaBattleGame()
+#         game.start_game(model, device, state_to_one_hot_5)
+
 
 class TestSeaBattleBoard(unittest.TestCase):
     def test_place_ships_randomly(self):
@@ -95,5 +99,4 @@ class TestSeaBattleBoard(unittest.TestCase):
 
 if __name__ == '__main__':
     # unittest.main()
-    
-    test_model(hidden_layer_size=[128, 128])
+    test_env()
