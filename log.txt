@@ -49,3 +49,4 @@
      Episode: 5960, Loss: 0.002398234326392412, Epsilon: 0.00998645168764533, Steps to complete: 28
      Episode: 5980, Loss: 0.00029560859547927976, Epsilon: 0.00998645168764533, Steps to complete: 25
      0.3.0 one-hot + last action + dynamic rewards(for missed shots); 10000 episodes:
+4/30: huge bug found. my _get_observation() returns all the information including the locations of unexplored ships! how does it still take more than 10 steps??
