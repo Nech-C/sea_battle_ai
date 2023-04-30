@@ -1,0 +1,652 @@
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+/home/nech/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([32, 32])) that is different to the input size (torch.Size([32, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+episode: 3 | episode reward: -2.07 | training loss: 0.08967719227075577
+episode: 4 | episode reward: -1.06 | training loss: 0.08686357736587524
+episode: 5 | episode reward: -0.07 | training loss: 0.08508051931858063
+episode: 6 | episode reward: -1.08 | training loss: 0.08517545461654663
+episode: 7 | episode reward: -4.039999999999999 | training loss: 0.15769173204898834
+episode: 8 | episode reward: -2.0599999999999996 | training loss: 0.1088118851184845
+episode: 9 | episode reward: -1.07 | training loss: 0.06098776310682297
+episode: 10 | episode reward: -0.060000000000000005 | training loss: 0.08500991761684418
+episode: 11 | episode reward: -1.09 | training loss: 0.10951848328113556
+episode: 12 | episode reward: -0.07 | training loss: 0.11133329570293427
+episode: 13 | episode reward: -0.08 | training loss: 0.05965258926153183
+episode: 14 | episode reward: -0.09 | training loss: 0.18662582337856293
+episode: 15 | episode reward: -0.07 | training loss: 0.1615161895751953
+episode: 16 | episode reward: -1.06 | training loss: 0.05981319397687912
+episode: 17 | episode reward: -0.08 | training loss: 0.05902837961912155
+episode: 18 | episode reward: -0.09999999999999999 | training loss: 0.06012038141489029
+episode: 19 | episode reward: -0.08 | training loss: 0.03522554785013199
+episode: 20 | episode reward: -3.05 | training loss: 0.08525369316339493
+episode: 21 | episode reward: -1.08 | training loss: 0.08482122421264648
+episode: 22 | episode reward: -1.07 | training loss: 0.05971468985080719
+episode: 23 | episode reward: -3.05 | training loss: 0.13540546596050262
+episode: 24 | episode reward: -1.09 | training loss: 0.05864745005965233
+episode: 25 | episode reward: -0.05 | training loss: 0.03307771310210228
+episode: 26 | episode reward: -1.06 | training loss: 0.11104908585548401
+episode: 27 | episode reward: -1.07 | training loss: 0.034409746527671814
+episode: 28 | episode reward: -1.05 | training loss: 0.03374661132693291
+episode: 29 | episode reward: -0.08 | training loss: 0.08486561477184296
+episode: 30 | episode reward: -0.07 | training loss: 0.16411879658699036
+episode: 31 | episode reward: -1.07 | training loss: 0.13857057690620422
+episode: 32 | episode reward: -0.08 | training loss: 0.1117151603102684
+episode: 33 | episode reward: -2.05 | training loss: 0.05895756930112839
+episode: 34 | episode reward: -2.0700000000000003 | training loss: 0.05858632177114487
+episode: 35 | episode reward: -1.07 | training loss: 0.05852150917053223
+episode: 36 | episode reward: -1.06 | training loss: 0.08605598658323288
+episode: 37 | episode reward: -2.04 | training loss: 0.03166276961565018
+episode: 38 | episode reward: -2.06 | training loss: 0.11252646148204803
+episode: 39 | episode reward: -2.0700000000000003 | training loss: 0.1404937207698822
+episode: 40 | episode reward: -1.07 | training loss: 0.08593747019767761
+episode: 41 | episode reward: -0.08 | training loss: 0.08574158698320389
+episode: 42 | episode reward: -3.05 | training loss: 0.16725198924541473
+episode: 43 | episode reward: -1.06 | training loss: 0.004245815332978964
+episode: 44 | episode reward: -1.07 | training loss: 0.16343840956687927
+episode: 45 | episode reward: -0.08 | training loss: 0.11160913854837418
+episode: 46 | episode reward: -2.0699999999999994 | training loss: 0.007301872596144676
+episode: 47 | episode reward: -0.07 | training loss: 0.11080709844827652
+episode: 48 | episode reward: -1.08 | training loss: 0.08497054874897003
+episode: 49 | episode reward: -0.08 | training loss: 0.059310078620910645
+episode: 50 | episode reward: -1.06 | training loss: 0.11115743219852448
+episode: 51 | episode reward: -2.06 | training loss: 0.08508513867855072
+episode: 52 | episode reward: -1.07 | training loss: 0.11035636067390442
+episode: 53 | episode reward: -0.07 | training loss: 0.032747235149145126
+episode: 54 | episode reward: -1.07 | training loss: 0.16334635019302368
+episode: 55 | episode reward: -3.0300000000000002 | training loss: 0.08468274772167206
+episode: 56 | episode reward: -1.08 | training loss: 0.1098407506942749
+episode: 57 | episode reward: -1.06 | training loss: 0.1817249357700348
+episode: 58 | episode reward: -0.09 | training loss: 0.06021208316087723
+episode: 59 | episode reward: -1.08 | training loss: 0.06108560413122177
+episode: 60 | episode reward: -2.0599999999999996 | training loss: 0.035391777753829956
+episode: 61 | episode reward: -0.09 | training loss: 0.036656223237514496
+episode: 62 | episode reward: -1.09 | training loss: 0.13502568006515503
+episode: 63 | episode reward: -0.09 | training loss: 0.05972881615161896
+episode: 64 | episode reward: -1.07 | training loss: 0.1381937861442566
+episode: 65 | episode reward: -0.07 | training loss: 0.0854826420545578
+episode: 66 | episode reward: -0.08 | training loss: 0.031094606965780258
+episode: 67 | episode reward: -0.08 | training loss: 0.08611951768398285
+episode: 68 | episode reward: -0.08 | training loss: 0.08620670437812805
+episode: 69 | episode reward: -1.08 | training loss: 0.11390885710716248
+episode: 70 | episode reward: -0.08 | training loss: 0.11486666649580002
+episode: 71 | episode reward: -1.07 | training loss: 0.08628160506486893
+episode: 72 | episode reward: -2.08 | training loss: 0.08542480319738388
+episode: 73 | episode reward: -1.07 | training loss: 0.11329353600740433
+episode: 74 | episode reward: -0.060000000000000005 | training loss: 0.05941418185830116
+episode: 75 | episode reward: -1.06 | training loss: 0.08572494983673096
+episode: 76 | episode reward: -2.0699999999999994 | training loss: 0.08540025353431702
+episode: 77 | episode reward: -1.08 | training loss: 0.1635909378528595
+episode: 78 | episode reward: -2.0799999999999996 | training loss: 0.03592503070831299
+episode: 79 | episode reward: -1.07 | training loss: 0.08651871234178543
+episode: 80 | episode reward: -0.07 | training loss: 0.11136756837368011
+episode: 81 | episode reward: -1.07 | training loss: 0.1574198603630066
+episode: 82 | episode reward: -0.060000000000000005 | training loss: 0.08734747767448425
+episode: 83 | episode reward: -0.060000000000000005 | training loss: 0.1098080426454544
+episode: 84 | episode reward: -2.0599999999999996 | training loss: 0.03647884726524353
+episode: 85 | episode reward: -0.09 | training loss: 0.008225738070905209
+episode: 86 | episode reward: -2.07 | training loss: 0.10991448909044266
+episode: 87 | episode reward: -1.07 | training loss: 0.03723444044589996
+episode: 88 | episode reward: -1.07 | training loss: 0.06137295439839363
+episode: 89 | episode reward: -1.06 | training loss: 0.08586148917675018
+episode: 90 | episode reward: -0.09 | training loss: 0.05950835347175598
+episode: 91 | episode reward: -0.09 | training loss: 0.08549241721630096
+episode: 92 | episode reward: -2.05 | training loss: 0.06037740036845207
+episode: 93 | episode reward: -1.08 | training loss: 0.13718214631080627
+episode: 94 | episode reward: -0.07 | training loss: 0.059928253293037415
+episode: 95 | episode reward: -1.08 | training loss: 0.05964560806751251
+episode: 96 | episode reward: -1.06 | training loss: 0.0859755277633667
+episode: 97 | episode reward: -1.09 | training loss: 0.08595305681228638
+episode: 98 | episode reward: -0.07 | training loss: 0.05906666815280914
+episode: 99 | episode reward: -4.04 | training loss: 0.06026032567024231
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+episode: 0 | episode reward: -0.08 | training loss: None
+/home/nech/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([32, 32])) that is different to the input size (torch.Size([32, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+episode: 0 | episode reward: -2.05 | training loss: None
+/home/nech/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([32, 32])) that is different to the input size (torch.Size([32, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+episode: 0 | episode reward: -2.06 | training loss: None
+/home/nech/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([32, 32])) that is different to the input size (torch.Size([32, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+episode: 100 | episode reward: -1.09 | training loss: 0.08876317739486694
+episode: 200 | episode reward: -2.049999999999999 | training loss: 0.06931249052286148
+episode: 300 | episode reward: -0.060000000000000005 | training loss: 0.08606342226266861
+episode: 400 | episode reward: -1.05 | training loss: 0.13229426741600037
+episode: 500 | episode reward: -1.06 | training loss: 0.05858305096626282
+episode: 600 | episode reward: -1.09 | training loss: 0.033556073904037476
+episode: 700 | episode reward: -0.08 | training loss: 0.059594109654426575
+episode: 800 | episode reward: -2.08 | training loss: 0.13530895113945007
+episode: 900 | episode reward: -0.07 | training loss: 0.05815151333808899
+episode: 1000 | episode reward: -0.09 | training loss: 0.10934598743915558
+episode: 1100 | episode reward: -0.09 | training loss: 0.06144537776708603
+episode: 1200 | episode reward: -2.0700000000000003 | training loss: 0.06121058389544487
+episode: 1300 | episode reward: -1.08 | training loss: 0.010240033268928528
+episode: 1400 | episode reward: -2.08 | training loss: 0.11234179139137268
+episode: 1500 | episode reward: -0.08 | training loss: 0.15253224968910217
+episode: 1600 | episode reward: -0.07 | training loss: 0.058586668223142624
+episode: 1700 | episode reward: -2.0700000000000003 | training loss: 0.005969488061964512
+episode: 1800 | episode reward: -1.05 | training loss: 0.11218902468681335
+episode: 1900 | episode reward: -0.09 | training loss: 0.1631377786397934
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+Traceback (most recent call last):
+  File "/home/nech/projects/python_projects/sea_battle_ai/bin/trainer.py", line 27, in <module>
+    double_dqn.run(args.save_path)
+  File "/home/nech/projects/python_projects/sea_battle_ai/src/sea_battle_ddqn.py", line 83, in run
+    self.update_epsilon()
+  File "/home/nech/projects/python_projects/sea_battle_ai/src/sea_battle_ddqn.py", line 112, in update_epsilon
+    self.epsilon = max(self.hyperparameters["epsilon_min"], self.epsilon * self.epsilon_decay)
+KeyError: 'epsilon_min'
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+episode: 0 | episode reward: -1.09 | training loss: None
+/home/nech/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([512, 512])) that is different to the input size (torch.Size([512, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+episode: 100 | episode reward: -2.079999999999999 | training loss: 0.1599976271390915
+episode: 200 | episode reward: -5.05 | training loss: 0.2057534158229828
+episode: 300 | episode reward: -7.029999999999999 | training loss: 0.2592591345310211
+episode: 400 | episode reward: -7.029999999999999 | training loss: 0.2727617025375366
+episode: 500 | episode reward: -9 | training loss: 0.3139986991882324
+episode: 600 | episode reward: -9 | training loss: 0.28221261501312256
+episode: 700 | episode reward: -9.01 | training loss: 0.29102200269699097
+episode: 800 | episode reward: -9.01 | training loss: 0.2895554304122925
+episode: 900 | episode reward: -7.03 | training loss: 0.2812644839286804
+episode: 1000 | episode reward: -7.01 | training loss: 0.33840852975845337
+episode: 1100 | episode reward: -9.01 | training loss: 0.3961127996444702
+episode: 1200 | episode reward: -4.0600000000000005 | training loss: 0.39624515175819397
+episode: 1300 | episode reward: -7.02 | training loss: 0.30556952953338623
+episode: 1400 | episode reward: -4.05 | training loss: 0.3254846930503845
+episode: 1500 | episode reward: -4.05 | training loss: 0.2915390729904175
+episode: 1600 | episode reward: -1.03 | training loss: 0.30020588636398315
+episode: 1700 | episode reward: -4.04 | training loss: 0.3526208996772766
+episode: 1800 | episode reward: -4.05 | training loss: 0.35859692096710205
+episode: 1900 | episode reward: -3.04 | training loss: 0.34228742122650146
+episode: 2000 | episode reward: -5.05 | training loss: 0.33197709918022156
+episode: 2100 | episode reward: -0.060000000000000005 | training loss: 0.3402904272079468
+episode: 2200 | episode reward: -3.06 | training loss: 0.3189026713371277
+episode: 2300 | episode reward: -0.09999999999999999 | training loss: 0.3228839039802551
+episode: 2400 | episode reward: -4.04 | training loss: 0.4104253053665161
+episode: 2500 | episode reward: -9 | training loss: 0.32666975259780884
+episode: 2600 | episode reward: -3.04 | training loss: 0.32933101058006287
+episode: 2700 | episode reward: -2.0700000000000003 | training loss: 0.38216400146484375
+episode: 2800 | episode reward: -0.08 | training loss: 0.39010071754455566
+episode: 2900 | episode reward: -9.01 | training loss: 0.3371850550174713
+episode: 3000 | episode reward: -7.03 | training loss: 0.33853012323379517
+episode: 3100 | episode reward: -4.05 | training loss: 0.4805566668510437
+episode: 3200 | episode reward: -8.02 | training loss: 0.3444903790950775
+episode: 3300 | episode reward: -2.06 | training loss: 0.3272993862628937
+episode: 3400 | episode reward: -5.04 | training loss: 0.38670384883880615
+episode: 3500 | episode reward: -1.08 | training loss: 0.4081808924674988
+episode: 3600 | episode reward: -2.06 | training loss: 0.3519325256347656
+episode: 3700 | episode reward: -3.05 | training loss: 0.40797558426856995
+episode: 3800 | episode reward: -0.07 | training loss: 0.3603619337081909
+episode: 3900 | episode reward: -8.02 | training loss: 0.48747432231903076
+episode: 4000 | episode reward: -7.03 | training loss: 0.4146096408367157
+episode: 4100 | episode reward: -5.04 | training loss: 0.44463327527046204
+episode: 4200 | episode reward: -3.06 | training loss: 0.3908677101135254
+episode: 4300 | episode reward: -4.0600000000000005 | training loss: 0.40720343589782715
+episode: 4400 | episode reward: -2.06 | training loss: 0.40528014302253723
+episode: 4500 | episode reward: -2.0700000000000003 | training loss: 0.36140841245651245
+episode: 4600 | episode reward: -1.07 | training loss: 0.4282960295677185
+episode: 4700 | episode reward: -8.02 | training loss: 0.39347898960113525
+episode: 4800 | episode reward: -5.05 | training loss: 0.492545485496521
+episode: 4900 | episode reward: -8.01 | training loss: 0.3584638237953186
+episode: 5000 | episode reward: -6.03 | training loss: 0.34010571241378784
+episode: 5100 | episode reward: -9.01 | training loss: 0.40494728088378906
+episode: 5200 | episode reward: -6.02 | training loss: 0.5463775992393494
+episode: 5300 | episode reward: -9.01 | training loss: 0.301310658454895
+^Z
+[2]+  Stopped                 python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+episode: 0 | episode reward: -2.07 | training loss: None
+/home/nech/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([128, 128])) that is different to the input size (torch.Size([128, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+episode: 100 | episode reward: -3.05 | training loss: 0.10998569428920746
+episode: 200 | episode reward: -4.05 | training loss: 0.21463936567306519
+episode: 300 | episode reward: -9.01 | training loss: 0.2556176781654358
+episode: 400 | episode reward: -8.02 | training loss: 0.2542118430137634
+episode: 500 | episode reward: -5.039999999999999 | training loss: 0.27142640948295593
+episode: 600 | episode reward: -8.02 | training loss: 0.2631113827228546
+episode: 700 | episode reward: -7.01 | training loss: 0.2629680633544922
+episode: 800 | episode reward: -8.02 | training loss: 0.27077046036720276
+episode: 900 | episode reward: -9.01 | training loss: 0.38691818714141846
+episode: 1000 | episode reward: -9.01 | training loss: 0.23855188488960266
+episode: 1100 | episode reward: -9.01 | training loss: 0.2465355396270752
+episode: 1200 | episode reward: -9.01 | training loss: 0.2994614541530609
+episode: 1300 | episode reward: -9 | training loss: 0.24414671957492828
+episode: 1400 | episode reward: -9.01 | training loss: 0.2313229739665985
+episode: 1500 | episode reward: -9.01 | training loss: 0.24212387204170227
+episode: 1600 | episode reward: -9.01 | training loss: 0.18094348907470703
+episode: 1700 | episode reward: -9 | training loss: 0.2312677800655365
+episode: 1800 | episode reward: -7.01 | training loss: 0.2251901924610138
+episode: 1900 | episode reward: -9.01 | training loss: 0.2145722657442093
+episode: 2000 | episode reward: -8.01 | training loss: 0.21003620326519012
+episode: 2100 | episode reward: -8.02 | training loss: 0.20773956179618835
+episode: 2200 | episode reward: -7.02 | training loss: 0.23799091577529907
+episode: 2300 | episode reward: -8.02 | training loss: 0.20236513018608093
+episode: 2400 | episode reward: -9.01 | training loss: 0.1898191124200821
+episode: 2500 | episode reward: -7.03 | training loss: 0.1419912576675415
+episode: 2600 | episode reward: -9.01 | training loss: 0.203229159116745
+episode: 2700 | episode reward: -8.01 | training loss: 0.19749557971954346
+episode: 2800 | episode reward: -9 | training loss: 0.2198886275291443
+episode: 2900 | episode reward: -8.02 | training loss: 0.19596759974956512
+episode: 3000 | episode reward: -9.01 | training loss: 0.2865373492240906
+episode: 3100 | episode reward: -9.01 | training loss: 0.26857614517211914
+episode: 3200 | episode reward: -8.02 | training loss: 0.3384580910205841
+episode: 3300 | episode reward: -9.01 | training loss: 0.2039831280708313
+episode: 3400 | episode reward: -8.02 | training loss: 0.23426303267478943
+episode: 3500 | episode reward: -9.01 | training loss: 0.1863650381565094
+episode: 3600 | episode reward: -9 | training loss: 0.19183167815208435
+episode: 3700 | episode reward: -7.03 | training loss: 0.18564434349536896
+episode: 3800 | episode reward: -9 | training loss: 0.2245059460401535
+episode: 3900 | episode reward: -9.01 | training loss: 0.25814706087112427
+episode: 4000 | episode reward: -8.01 | training loss: 0.23045454919338226
+episode: 4100 | episode reward: -9.01 | training loss: 0.19292740523815155
+episode: 4200 | episode reward: -8.01 | training loss: 0.17744699120521545
+episode: 4300 | episode reward: -8.02 | training loss: 0.17264461517333984
+episode: 4400 | episode reward: -9.01 | training loss: 0.1694835126399994
+episode: 4500 | episode reward: -9.01 | training loss: 0.1748063564300537
+episode: 4600 | episode reward: -8.02 | training loss: 0.15321171283721924
+episode: 4700 | episode reward: -9.01 | training loss: 0.19745689630508423
+episode: 4800 | episode reward: -7.01 | training loss: 0.19588212668895721
+episode: 4900 | episode reward: -9.01 | training loss: 0.2032584547996521
+episode: 5000 | episode reward: -9 | training loss: 0.16140827536582947
+episode: 5100 | episode reward: -9.01 | training loss: 0.23686638474464417
+episode: 5200 | episode reward: -9.01 | training loss: 0.1683751493692398
+episode: 5300 | episode reward: -9 | training loss: 0.14006738364696503
+episode: 5400 | episode reward: -9.01 | training loss: 0.09332257509231567
+episode: 5500 | episode reward: -9.01 | training loss: 0.18644478917121887
+episode: 5600 | episode reward: -5.05 | training loss: 0.14329472184181213
+episode: 5700 | episode reward: -9.01 | training loss: 0.1675671935081482
+episode: 5800 | episode reward: -8.02 | training loss: 0.13158437609672546
+episode: 5900 | episode reward: -9.01 | training loss: 0.147649347782135
+episode: 6000 | episode reward: -8.01 | training loss: 0.1490057408809662
+^Z
+[3]+  Stopped                 python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+Traceback (most recent call last):
+  File "/home/nech/projects/python_projects/sea_battle_ai/bin/trainer.py", line 27, in <module>
+    double_dqn.run(args.save_path)
+  File "/home/nech/projects/python_projects/sea_battle_ai/src/sea_battle_ddqn.py", line 91, in run
+    print(f"episode: {episode} | episode reward: {episode_reward:.2f} | training loss: {training_loss:.5f} | steps: {episode_steps} | epsilon: {self.epsilon:.2f}")
+TypeError: unsupported format string passed to NoneType.__format__
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+Traceback (most recent call last):
+  File "/home/nech/projects/python_projects/sea_battle_ai/bin/trainer.py", line 27, in <module>
+    double_dqn.run(args.save_path)
+  File "/home/nech/projects/python_projects/sea_battle_ai/src/sea_battle_ddqn.py", line 92, in run
+    print(f"episode: {episode} | episode reward: {episode_reward:.2f} | training loss: {training_loss_str} | steps: {step_count} | epsilon: {agent.epsilon:.2f}")
+NameError: name 'step_count' is not defined
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+episode: 0 | episode reward: -2.05 | training loss: N/A | steps: 10 | epsilon: 0.99
+/home/nech/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([128, 128])) that is different to the input size (torch.Size([128, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+episode: 100 | episode reward: -3.05 | training loss: 0.17570 | steps: 10 | epsilon: 0.60
+episode: 200 | episode reward: -4.05 | training loss: 0.19745 | steps: 10 | epsilon: 0.37
+episode: 300 | episode reward: -7.02 | training loss: 0.22525 | steps: 10 | epsilon: 0.22
+episode: 400 | episode reward: -8.01 | training loss: 0.27160 | steps: 10 | epsilon: 0.13
+episode: 500 | episode reward: -8.02 | training loss: 0.29777 | steps: 10 | epsilon: 0.08
+target network is being updated
+episode: 600 | episode reward: -7.02 | training loss: 0.27964 | steps: 10 | epsilon: 0.05
+episode: 700 | episode reward: -9.00 | training loss: 0.27512 | steps: 10 | epsilon: 0.03
+episode: 800 | episode reward: -8.01 | training loss: 0.27698 | steps: 10 | epsilon: 0.02
+episode: 900 | episode reward: -8.01 | training loss: 0.28931 | steps: 10 | epsilon: 0.01
+episode: 1000 | episode reward: -9.00 | training loss: 0.24216 | steps: 10 | epsilon: 0.01
+target network is being updated
+episode: 1100 | episode reward: -9.01 | training loss: 0.24916 | steps: 10 | epsilon: 0.01
+episode: 1200 | episode reward: -9.01 | training loss: 0.18159 | steps: 10 | epsilon: 0.01
+episode: 1300 | episode reward: -9.01 | training loss: 0.22101 | steps: 10 | epsilon: 0.01
+episode: 1400 | episode reward: -9.01 | training loss: 0.21377 | steps: 10 | epsilon: 0.01
+episode: 1500 | episode reward: -9.01 | training loss: 0.27673 | steps: 10 | epsilon: 0.01
+target network is being updated
+episode: 1600 | episode reward: -8.02 | training loss: 0.23501 | steps: 10 | epsilon: 0.01
+episode: 1700 | episode reward: -6.04 | training loss: 0.27271 | steps: 10 | epsilon: 0.01
+episode: 1800 | episode reward: -9.01 | training loss: 0.21522 | steps: 10 | epsilon: 0.01
+episode: 1900 | episode reward: -8.02 | training loss: 0.22848 | steps: 10 | epsilon: 0.01
+episode: 2000 | episode reward: -9.01 | training loss: 0.20511 | steps: 10 | epsilon: 0.01
+target network is being updated
+episode: 2100 | episode reward: -8.02 | training loss: 0.17123 | steps: 10 | epsilon: 0.01
+episode: 2200 | episode reward: -8.01 | training loss: 0.21618 | steps: 10 | epsilon: 0.01
+episode: 2300 | episode reward: -9.01 | training loss: 0.21491 | steps: 10 | epsilon: 0.01
+episode: 2400 | episode reward: -9.01 | training loss: 0.22581 | steps: 10 | epsilon: 0.01
+episode: 2500 | episode reward: -9.00 | training loss: 0.19243 | steps: 10 | epsilon: 0.01
+target network is being updated
+episode: 2600 | episode reward: -9.00 | training loss: 0.19593 | steps: 10 | epsilon: 0.01
+episode: 2700 | episode reward: -9.00 | training loss: 0.23120 | steps: 10 | epsilon: 0.01
+episode: 2800 | episode reward: -9.01 | training loss: 0.19456 | steps: 10 | epsilon: 0.01
+episode: 2900 | episode reward: -9.01 | training loss: 0.21392 | steps: 10 | epsilon: 0.01
+episode: 3000 | episode reward: -7.02 | training loss: 0.23255 | steps: 10 | epsilon: 0.01
+target network is being updated
+episode: 3100 | episode reward: -6.03 | training loss: 0.19707 | steps: 10 | epsilon: 0.01
+episode: 3200 | episode reward: -9.01 | training loss: 0.20309 | steps: 10 | epsilon: 0.01
+episode: 3300 | episode reward: -7.01 | training loss: 0.18224 | steps: 10 | epsilon: 0.01
+episode: 3400 | episode reward: -9.01 | training loss: 0.18463 | steps: 10 | epsilon: 0.01
+episode: 3500 | episode reward: -8.02 | training loss: 0.14841 | steps: 10 | epsilon: 0.01
+target network is being updated
+episode: 3600 | episode reward: -9.01 | training loss: 0.16019 | steps: 10 | epsilon: 0.01
+episode: 3700 | episode reward: -8.01 | training loss: 0.19490 | steps: 10 | epsilon: 0.01
+episode: 3800 | episode reward: -7.03 | training loss: 0.17088 | steps: 10 | epsilon: 0.01
+episode: 3900 | episode reward: -9.00 | training loss: 0.19908 | steps: 10 | epsilon: 0.01
+episode: 4000 | episode reward: -7.01 | training loss: 0.18719 | steps: 10 | epsilon: 0.01
+target network is being updated
+episode: 4100 | episode reward: -9.01 | training loss: 0.18983 | steps: 10 | epsilon: 0.01
+episode: 4200 | episode reward: -9.00 | training loss: 0.16836 | steps: 10 | epsilon: 0.01
+episode: 4300 | episode reward: -7.03 | training loss: 0.20019 | steps: 10 | epsilon: 0.01
+^Z
+[4]+  Stopped                 python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+/home/nech/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([128, 128])) that is different to the input size (torch.Size([128, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+episode: 0 | episode reward: -95.31 | training loss: 0.53413 | steps: 137 | epsilon: 0.99
+episode: 100 | episode reward: -220.28 | training loss: 2.93194 | steps: 259 | epsilon: 0.60
+episode: 200 | episode reward: -154.28 | training loss: 3.67029 | steps: 193 | epsilon: 0.37
+episode: 300 | episode reward: -242.31 | training loss: 0.27585 | steps: 284 | epsilon: 0.22
+episode: 400 | episode reward: -573.34 | training loss: 0.17323 | steps: 618 | epsilon: 0.13
+target network is being updated
+episode: 500 | episode reward: -273.21 | training loss: 0.17169 | steps: 305 | epsilon: 0.08
+episode: 600 | episode reward: -571.35 | training loss: 0.10709 | steps: 617 | epsilon: 0.05
+episode: 700 | episode reward: -510.28 | training loss: 0.12852 | steps: 549 | epsilon: 0.03
+episode: 800 | episode reward: -493.34 | training loss: 0.15584 | steps: 538 | epsilon: 0.02
+episode: 900 | episode reward: -489.35 | training loss: 0.13529 | steps: 535 | epsilon: 0.01
+target network is being updated
+episode: 1000 | episode reward: -407.26 | training loss: 0.17597 | steps: 444 | epsilon: 0.01
+episode: 1100 | episode reward: -464.31 | training loss: 0.16845 | steps: 506 | epsilon: 0.01
+episode: 1200 | episode reward: -353.23 | training loss: 0.18148 | steps: 387 | epsilon: 0.01
+episode: 1300 | episode reward: -271.18 | training loss: 9.37747 | steps: 300 | epsilon: 0.01
+episode: 1400 | episode reward: -485.34 | training loss: 4.36066 | steps: 530 | epsilon: 0.01
+target network is being updated
+episode: 1500 | episode reward: -373.26 | training loss: 0.36039 | steps: 410 | epsilon: 0.01
+episode: 1600 | episode reward: -471.32 | training loss: 0.10208 | steps: 514 | epsilon: 0.01
+episode: 1700 | episode reward: -370.27 | training loss: 0.17796 | steps: 408 | epsilon: 0.01
+episode: 1800 | episode reward: -463.31 | training loss: 0.15877 | steps: 505 | epsilon: 0.01
+episode: 1900 | episode reward: -538.33 | training loss: 0.28162 | steps: 582 | epsilon: 0.01
+^Z[3]   Killed                  python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+
+[5]+  Stopped                 python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+episode: 0 | episode reward: -25.21 | training loss: N/A | steps: 57 | epsilon: 0.99
+/home/nech/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([128, 128])) that is different to the input size (torch.Size([128, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+episode: 100 | episode reward: -175.34 | training loss: 3.49132 | steps: 220 | epsilon: 0.60
+episode: 200 | episode reward: -155.24 | training loss: 0.21589 | steps: 190 | epsilon: 0.37
+target network is being updated
+episode: 300 | episode reward: -242.31 | training loss: 7.58256 | steps: 284 | epsilon: 0.22
+episode: 400 | episode reward: -352.35 | training loss: 0.18939 | steps: 398 | epsilon: 0.13
+target network is being updated
+episode: 500 | episode reward: -316.30 | training loss: 0.22617 | steps: 357 | epsilon: 0.08
+episode: 600 | episode reward: -277.28 | training loss: 0.17559 | steps: 316 | epsilon: 0.05
+episode: 700 | episode reward: -281.33 | training loss: 0.19123 | steps: 325 | epsilon: 0.03
+target network is being updated
+episode: 800 | episode reward: -286.29 | training loss: 0.20701 | steps: 326 | epsilon: 0.02
+episode: 900 | episode reward: -268.33 | training loss: 7.44041 | steps: 312 | epsilon: 0.01
+target network is being updated
+episode: 1000 | episode reward: -321.32 | training loss: 0.36539 | steps: 364 | epsilon: 0.01
+^Z[5]   Killed                  python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+
+[6]+  Stopped                 python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+/home/nech/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([128, 128])) that is different to the input size (torch.Size([128, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+episode: 0 | episode reward: -98.28 | training loss: 0.54581 | steps: 137 | epsilon: 0.99
+episode: 100 | episode reward: -154.27 | training loss: 0.20117 | steps: 192 | epsilon: 0.60
+episode: 200 | episode reward: -121.25 | training loss: 0.17393 | steps: 157 | epsilon: 0.37
+^Z[6]   Killed                  python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+
+[7]+  Stopped                 python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+episode: 0 | episode reward: -74.29 | training loss: N/A | steps: 114 | epsilon: 0.99
+/home/nech/miniconda3/envs/pytorch/lib/python3.10/site-packages/torch/nn/modules/loss.py:536: UserWarning: Using a target size (torch.Size([128, 128])) that is different to the input size (torch.Size([128, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+episode: 100 | episode reward: -136.30 | training loss: 0.18779 | steps: 177 | epsilon: 0.60
+episode: 200 | episode reward: -187.28 | training loss: 0.17264 | steps: 226 | epsilon: 0.37
+target network is being updated
+^Z[4]   Killed                  python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+
+[8]+  Stopped                 python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+episode: 0 | episode reward: -48.24 | training loss: N/A | steps: 83 | epsilon: 0.99
+episode: 100 | episode reward: -110.27 | training loss: 0.12179 | steps: 148 | epsilon: 0.60
+episode: 200 | episode reward: -158.31 | training loss: 0.14679 | steps: 200 | epsilon: 0.37
+target network is being updated
+episode: 300 | episode reward: -131.22 | training loss: 0.24689 | steps: 164 | epsilon: 0.22
+episode: 400 | episode reward: -120.23 | training loss: 0.07872 | steps: 154 | epsilon: 0.13
+target network is being updated
+episode: 500 | episode reward: -195.33 | training loss: 0.12628 | steps: 239 | epsilon: 0.08
+episode: 600 | episode reward: -200.37 | training loss: 0.07769 | steps: 248 | epsilon: 0.05
+episode: 700 | episode reward: -69.23 | training loss: 0.10109 | steps: 103 | epsilon: 0.03
+target network is being updated
+episode: 800 | episode reward: -54.29 | training loss: 0.17994 | steps: 94 | epsilon: 0.02
+episode: 900 | episode reward: 0.66 | training loss: 0.08618 | steps: 44 | epsilon: 0.01
+target network is being updated
+episode: 1000 | episode reward: -78.29 | training loss: 0.41250 | steps: 118 | epsilon: 0.01
+episode: 1100 | episode reward: -53.25 | training loss: 0.18914 | steps: 89 | epsilon: 0.01
+episode: 1200 | episode reward: 0.74 | training loss: 0.26270 | steps: 36 | epsilon: 0.01
+target network is being updated
+episode: 1300 | episode reward: 0.72 | training loss: 0.07309 | steps: 38 | epsilon: 0.01
+episode: 1400 | episode reward: 0.71 | training loss: 0.22813 | steps: 39 | epsilon: 0.01
+target network is being updated
+episode: 1500 | episode reward: 0.76 | training loss: 0.26578 | steps: 34 | epsilon: 0.01
+episode: 1600 | episode reward: 0.70 | training loss: 0.13330 | steps: 40 | epsilon: 0.01
+episode: 1700 | episode reward: 0.77 | training loss: 0.13360 | steps: 33 | epsilon: 0.01
+target network is being updated
+episode: 1800 | episode reward: 0.77 | training loss: 0.11086 | steps: 33 | epsilon: 0.01
+episode: 1900 | episode reward: 0.64 | training loss: 0.12129 | steps: 46 | epsilon: 0.01
+target network is being updated
+episode: 2000 | episode reward: 0.76 | training loss: 0.18583 | steps: 34 | epsilon: 0.01
+episode: 2100 | episode reward: -0.28 | training loss: 0.19623 | steps: 39 | epsilon: 0.01
+episode: 2200 | episode reward: 0.72 | training loss: 0.10609 | steps: 38 | epsilon: 0.01
+target network is being updated
+episode: 2300 | episode reward: 0.68 | training loss: 0.08575 | steps: 42 | epsilon: 0.01
+episode: 2400 | episode reward: 0.81 | training loss: 0.07597 | steps: 29 | epsilon: 0.01
+target network is being updated
+episode: 2500 | episode reward: -0.23 | training loss: 0.07376 | steps: 34 | epsilon: 0.01
+episode: 2600 | episode reward: 0.84 | training loss: 0.05044 | steps: 26 | epsilon: 0.01
+episode: 2700 | episode reward: 0.67 | training loss: 0.02082 | steps: 43 | epsilon: 0.01
+target network is being updated
+episode: 2800 | episode reward: 0.71 | training loss: 0.03364 | steps: 39 | epsilon: 0.01
+episode: 2900 | episode reward: -0.30 | training loss: 0.03145 | steps: 41 | epsilon: 0.01
+target network is being updated
+episode: 3000 | episode reward: 0.76 | training loss: 0.04228 | steps: 34 | epsilon: 0.01
+episode: 3100 | episode reward: 0.75 | training loss: 0.04073 | steps: 35 | epsilon: 0.01
+episode: 3200 | episode reward: -6.26 | training loss: 0.03182 | steps: 43 | epsilon: 0.01
+target network is being updated
+episode: 3300 | episode reward: 0.73 | training loss: 0.02343 | steps: 37 | epsilon: 0.01
+episode: 3400 | episode reward: 0.78 | training loss: 0.02855 | steps: 32 | epsilon: 0.01
+target network is being updated
+episode: 3500 | episode reward: 0.70 | training loss: 0.03053 | steps: 40 | epsilon: 0.01
+episode: 3600 | episode reward: 0.67 | training loss: 0.02426 | steps: 43 | epsilon: 0.01
+episode: 3700 | episode reward: 0.90 | training loss: 0.01756 | steps: 20 | epsilon: 0.01
+target network is being updated
+episode: 3800 | episode reward: 0.73 | training loss: 0.01977 | steps: 37 | epsilon: 0.01
+episode: 3900 | episode reward: 0.74 | training loss: 0.02472 | steps: 36 | epsilon: 0.01
+target network is being updated
+episode: 4000 | episode reward: 0.70 | training loss: 0.01926 | steps: 40 | epsilon: 0.01
+^Z[8]   Killed                  python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+
+[9]+  Stopped                 python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+episode: 0 | episode reward: -32.22 | training loss: N/A | steps: 65 | epsilon: 0.99
+^Z[9]   Killed                  python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+
+[10]+  Stopped                 python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+(pytorch) nech@LAPTOP-TDE1VV6L:~/projects/python_projects/sea_battle_ai$ python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models/
+episode: 0 | episode reward: -58.32 | training loss: N/A | steps: 101 | epsilon: 0.99
+episode: 100 | episode reward: -68.26 | training loss: 0.19550 | steps: 105 | epsilon: 0.60
+episode: 200 | episode reward: -71.28 | training loss: 0.14107 | steps: 110 | epsilon: 0.37
+episode: 300 | episode reward: -171.32 | training loss: 0.12610 | steps: 214 | epsilon: 0.22
+episode: 400 | episode reward: -135.35 | training loss: 0.08518 | steps: 181 | epsilon: 0.13
+target network is being updated
+episode: 500 | episode reward: -174.23 | training loss: 0.08807 | steps: 208 | epsilon: 0.08
+episode: 600 | episode reward: -191.35 | training loss: 0.14358 | steps: 237 | epsilon: 0.05
+episode: 700 | episode reward: -154.33 | training loss: 0.10935 | steps: 198 | epsilon: 0.03
+episode: 800 | episode reward: -12.20 | training loss: 0.11067 | steps: 43 | epsilon: 0.02
+episode: 900 | episode reward: -36.30 | training loss: 0.17073 | steps: 77 | epsilon: 0.01
+target network is being updated
+episode: 1000 | episode reward: -39.31 | training loss: 0.12101 | steps: 81 | epsilon: 0.01
+episode: 1100 | episode reward: -6.27 | training loss: 0.09937 | steps: 44 | epsilon: 0.01
+episode: 1200 | episode reward: 0.72 | training loss: 0.09360 | steps: 38 | epsilon: 0.01
+episode: 1300 | episode reward: -28.33 | training loss: 0.06542 | steps: 72 | epsilon: 0.01
+episode: 1400 | episode reward: -0.30 | training loss: 0.07225 | steps: 41 | epsilon: 0.01
+target network is being updated
+episode: 1500 | episode reward: 0.73 | training loss: 0.06489 | steps: 37 | epsilon: 0.01
+episode: 1600 | episode reward: 0.72 | training loss: 0.15800 | steps: 38 | epsilon: 0.01
+episode: 1700 | episode reward: 0.77 | training loss: 0.10385 | steps: 33 | epsilon: 0.01
+episode: 1800 | episode reward: 0.70 | training loss: 0.06406 | steps: 40 | epsilon: 0.01
+episode: 1900 | episode reward: 0.75 | training loss: 0.12983 | steps: 35 | epsilon: 0.01
+target network is being updated
+episode: 2000 | episode reward: 0.69 | training loss: 0.09939 | steps: 41 | epsilon: 0.01
+episode: 2100 | episode reward: 0.71 | training loss: 0.04137 | steps: 39 | epsilon: 0.01
+episode: 2200 | episode reward: 0.68 | training loss: 0.08730 | steps: 42 | epsilon: 0.01
+episode: 2300 | episode reward: 0.67 | training loss: 0.02588 | steps: 43 | epsilon: 0.01
+episode: 2400 | episode reward: 0.68 | training loss: 0.06429 | steps: 42 | epsilon: 0.01
+target network is being updated
+episode: 2500 | episode reward: 0.77 | training loss: 0.09767 | steps: 33 | epsilon: 0.01
+episode: 2600 | episode reward: 0.75 | training loss: 0.05533 | steps: 35 | epsilon: 0.01
+episode: 2700 | episode reward: 0.74 | training loss: 0.05173 | steps: 36 | epsilon: 0.01
+episode: 2800 | episode reward: 0.73 | training loss: 0.03400 | steps: 37 | epsilon: 0.01
+episode: 2900 | episode reward: 0.76 | training loss: 0.03804 | steps: 34 | epsilon: 0.01
+target network is being updated
+episode: 3000 | episode reward: 0.85 | training loss: 0.07241 | steps: 25 | epsilon: 0.01
+episode: 3100 | episode reward: 0.85 | training loss: 0.03578 | steps: 25 | epsilon: 0.01
+episode: 3200 | episode reward: 0.70 | training loss: 0.03343 | steps: 40 | epsilon: 0.01
+episode: 3300 | episode reward: 0.69 | training loss: 0.04650 | steps: 41 | epsilon: 0.01
+episode: 3400 | episode reward: 0.72 | training loss: 0.03206 | steps: 38 | epsilon: 0.01
+target network is being updated
+episode: 3500 | episode reward: 0.76 | training loss: 0.03466 | steps: 34 | epsilon: 0.01
+episode: 3600 | episode reward: 0.69 | training loss: 0.02427 | steps: 41 | epsilon: 0.01
+episode: 3700 | episode reward: 0.83 | training loss: 0.02437 | steps: 27 | epsilon: 0.01
+episode: 3800 | episode reward: 0.75 | training loss: 0.03426 | steps: 35 | epsilon: 0.01
+episode: 3900 | episode reward: 0.80 | training loss: 0.03512 | steps: 30 | epsilon: 0.01
+target network is being updated
+episode: 4000 | episode reward: 0.76 | training loss: 0.02277 | steps: 34 | epsilon: 0.01
+episode: 4100 | episode reward: 0.84 | training loss: 0.02505 | steps: 26 | epsilon: 0.01
+episode: 4200 | episode reward: 0.80 | training loss: 0.01695 | steps: 30 | epsilon: 0.01
+episode: 4300 | episode reward: 0.83 | training loss: 0.01677 | steps: 27 | epsilon: 0.01
+episode: 4400 | episode reward: 0.73 | training loss: 0.02443 | steps: 37 | epsilon: 0.01
+target network is being updated
+episode: 4500 | episode reward: -79.29 | training loss: 0.03143 | steps: 119 | epsilon: 0.01
+episode: 4600 | episode reward: -0.27 | training loss: 0.02432 | steps: 38 | epsilon: 0.01
+episode: 4700 | episode reward: -0.19 | training loss: 0.02824 | steps: 30 | epsilon: 0.01
+episode: 4800 | episode reward: 0.74 | training loss: 0.01859 | steps: 36 | epsilon: 0.01
+episode: 4900 | episode reward: -0.13 | training loss: 0.03041 | steps: 24 | epsilon: 0.01
+target network is being updated
+episode: 5000 | episode reward: 0.73 | training loss: 0.02146 | steps: 37 | epsilon: 0.01
+episode: 5100 | episode reward: 0.81 | training loss: 0.02344 | steps: 29 | epsilon: 0.01
+episode: 5200 | episode reward: 0.81 | training loss: 0.01625 | steps: 29 | epsilon: 0.01
+episode: 5300 | episode reward: -0.27 | training loss: 0.01586 | steps: 38 | epsilon: 0.01
+episode: 5400 | episode reward: 0.80 | training loss: 0.02008 | steps: 30 | epsilon: 0.01
+target network is being updated
+episode: 5500 | episode reward: 0.80 | training loss: 0.03424 | steps: 30 | epsilon: 0.01
+episode: 5600 | episode reward: -0.28 | training loss: 0.01205 | steps: 39 | epsilon: 0.01
+episode: 5700 | episode reward: -0.30 | training loss: 0.01912 | steps: 41 | epsilon: 0.01
+episode: 5800 | episode reward: -0.19 | training loss: 0.01601 | steps: 30 | epsilon: 0.01
+episode: 5900 | episode reward: 0.79 | training loss: 0.02126 | steps: 31 | epsilon: 0.01
+target network is being updated
+episode: 6000 | episode reward: 0.74 | training loss: 0.02270 | steps: 36 | epsilon: 0.01
+episode: 6100 | episode reward: 0.69 | training loss: 0.01973 | steps: 41 | epsilon: 0.01
+episode: 6200 | episode reward: 0.81 | training loss: 0.01522 | steps: 29 | epsilon: 0.01
+episode: 6300 | episode reward: 0.76 | training loss: 0.01924 | steps: 34 | epsilon: 0.01
+episode: 6400 | episode reward: 0.80 | training loss: 0.01762 | steps: 30 | epsilon: 0.01
+target network is being updated
+episode: 6500 | episode reward: 0.70 | training loss: 0.01757 | steps: 40 | epsilon: 0.01
+episode: 6600 | episode reward: 0.73 | training loss: 0.01929 | steps: 37 | epsilon: 0.01
+episode: 6700 | episode reward: 0.91 | training loss: 0.01569 | steps: 19 | epsilon: 0.01
+episode: 6800 | episode reward: 0.81 | training loss: 0.02145 | steps: 29 | epsilon: 0.01
+episode: 6900 | episode reward: -0.21 | training loss: 0.02486 | steps: 32 | epsilon: 0.01
+target network is being updated
+episode: 7000 | episode reward: 0.84 | training loss: 0.01766 | steps: 26 | epsilon: 0.01
+episode: 7100 | episode reward: 0.74 | training loss: 0.02263 | steps: 36 | epsilon: 0.01
+episode: 7200 | episode reward: 0.67 | training loss: 0.02394 | steps: 43 | epsilon: 0.01
+episode: 7300 | episode reward: 0.69 | training loss: 0.01828 | steps: 41 | epsilon: 0.01
+episode: 7400 | episode reward: 0.83 | training loss: 0.01416 | steps: 27 | epsilon: 0.01
+target network is being updated
+episode: 7500 | episode reward: 0.89 | training loss: 0.01749 | steps: 21 | epsilon: 0.01
+episode: 7600 | episode reward: -0.24 | training loss: 0.01243 | steps: 35 | epsilon: 0.01
+episode: 7700 | episode reward: 0.82 | training loss: 0.01772 | steps: 28 | epsilon: 0.01
+episode: 7800 | episode reward: 0.68 | training loss: 0.02304 | steps: 42 | epsilon: 0.01
+episode: 7900 | episode reward: 0.77 | training loss: 0.01806 | steps: 33 | epsilon: 0.01
+target network is being updated
+episode: 8000 | episode reward: 0.82 | training loss: 0.01320 | steps: 28 | epsilon: 0.01
+episode: 8100 | episode reward: 0.82 | training loss: 0.01544 | steps: 28 | epsilon: 0.01
+episode: 8200 | episode reward: 0.77 | training loss: 0.02078 | steps: 33 | epsilon: 0.01
+episode: 8300 | episode reward: 0.86 | training loss: 0.03163 | steps: 24 | epsilon: 0.01
+episode: 8400 | episode reward: 0.76 | training loss: 0.01427 | steps: 34 | epsilon: 0.01
+target network is being updated
+episode: 8500 | episode reward: 0.81 | training loss: 0.01075 | steps: 29 | epsilon: 0.01
+episode: 8600 | episode reward: -0.27 | training loss: 0.01169 | steps: 38 | epsilon: 0.01
+episode: 8700 | episode reward: 0.82 | training loss: 0.01516 | steps: 28 | epsilon: 0.01
+episode: 8800 | episode reward: 0.74 | training loss: 0.01634 | steps: 36 | epsilon: 0.01
+episode: 8900 | episode reward: 0.73 | training loss: 0.01733 | steps: 37 | epsilon: 0.01
+target network is being updated
+episode: 9000 | episode reward: 0.71 | training loss: 0.01584 | steps: 39 | epsilon: 0.01
+episode: 9100 | episode reward: 0.83 | training loss: 0.01266 | steps: 27 | epsilon: 0.01
+episode: 9200 | episode reward: 0.81 | training loss: 0.01459 | steps: 29 | epsilon: 0.01
+episode: 9300 | episode reward: -0.24 | training loss: 0.01525 | steps: 35 | epsilon: 0.01
+episode: 9400 | episode reward: 0.72 | training loss: 0.01087 | steps: 38 | epsilon: 0.01
+target network is being updated
+episode: 9500 | episode reward: 0.74 | training loss: 0.01917 | steps: 36 | epsilon: 0.01
+episode: 9600 | episode reward: -0.22 | training loss: 0.02414 | steps: 33 | epsilon: 0.01
+episode: 9700 | episode reward: 0.74 | training loss: 0.01454 | steps: 36 | epsilon: 0.01
+episode: 9800 | episode reward: 0.73 | training loss: 0.01153 | steps: 37 | epsilon: 0.01
+episode: 9900 | episode reward: 0.78 | training loss: 0.01758 | steps: 32 | epsilon: 0.01
+target network is being updated
+episode: 10000 | episode reward: 0.81 | training loss: 0.01662 | steps: 29 | epsilon: 0.01
+episode: 10100 | episode reward: 0.69 | training loss: 0.01261 | steps: 41 | epsilon: 0.01
+episode: 10200 | episode reward: 0.74 | training loss: 0.01040 | steps: 36 | epsilon: 0.01
+episode: 10300 | episode reward: 0.81 | training loss: 0.01683 | steps: 29 | epsilon: 0.01
+episode: 10400 | episode reward: 0.84 | training loss: 0.01190 | steps: 26 | epsilon: 0.01
+target network is being updated
+episode: 10500 | episode reward: 0.73 | training loss: 0.01932 | steps: 37 | epsilon: 0.01
+episode: 10600 | episode reward: -0.25 | training loss: 0.01471 | steps: 36 | epsilon: 0.01
+episode: 10700 | episode reward: 0.75 | training loss: 0.01657 | steps: 35 | epsilon: 0.01
+episode: 10800 | episode reward: 0.85 | training loss: 0.01406 | steps: 25 | epsilon: 0.01
+episode: 10900 | episode reward: -0.24 | training loss: 0.00795 | steps: 35 | epsilon: 0.01
+target network is being updated
+episode: 11000 | episode reward: 0.81 | training loss: 0.01957 | steps: 29 | epsilon: 0.01
+episode: 11100 | episode reward: 0.80 | training loss: 0.01200 | steps: 30 | epsilon: 0.01
+episode: 11200 | episode reward: 0.79 | training loss: 0.01162 | steps: 31 | epsilon: 0.01
+episode: 11300 | episode reward: 0.83 | training loss: 0.01421 | steps: 27 | epsilon: 0.01
+episode: 11400 | episode reward: 0.80 | training loss: 0.00839 | steps: 30 | epsilon: 0.01
+target network is being updated
+episode: 11500 | episode reward: 0.85 | training loss: 0.01673 | steps: 25 | epsilon: 0.01
+episode: 11600 | episode reward: 0.71 | training loss: 0.01027 | steps: 39 | epsilon: 0.01
+episode: 11700 | episode reward: 0.71 | training loss: 0.01679 | steps: 39 | epsilon: 0.01
+episode: 11800 | episode reward: 0.69 | training loss: 0.01009 | steps: 41 | epsilon: 0.01
+episode: 11900 | episode reward: -0.13 | training loss: 0.01568 | steps: 24 | epsilon: 0.01
+target network is being updated
+episode: 12000 | episode reward: 0.66 | training loss: 0.01525 | steps: 44 | epsilon: 0.01
+episode: 12100 | episode reward: 0.78 | training loss: 0.01186 | steps: 32 | epsilon: 0.01
+episode: 12200 | episode reward: 0.70 | training loss: 0.01830 | steps: 40 | epsilon: 0.01
+episode: 12300 | episode reward: 0.84 | training loss: 0.01276 | steps: 26 | epsilon: 0.01
+episode: 12400 | episode reward: 0.80 | training loss: 0.01759 | steps: 30 | epsilon: 0.01
+target network is being updated
+episode: 12500 | episode reward: 0.77 | training loss: 0.01625 | steps: 33 | epsilon: 0.01
+episode: 12600 | episode reward: 0.76 | training loss: 0.01072 | steps: 34 | epsilon: 0.01
+episode: 12700 | episode reward: 0.77 | training loss: 0.01044 | steps: 33 | epsilon: 0.01
+episode: 12800 | episode reward: 0.80 | training loss: 0.00829 | steps: 30 | epsilon: 0.01
+episode: 12900 | episode reward: 0.78 | training loss: 0.01074 | steps: 32 | epsilon: 0.01
+target network is being updated
+episode: 13000 | episode reward: 0.80 | training loss: 0.01190 | steps: 30 | epsilon: 0.01
+episode: 13100 | episode reward: 0.76 | training loss: 0.01210 | steps: 34 | epsilon: 0.01
+episode: 13200 | episode reward: 0.83 | training loss: 0.00963 | steps: 27 | epsilon: 0.01
+episode: 13300 | episode reward: 0.75 | training loss: 0.01303 | steps: 35 | epsilon: 0.01
+episode: 13400 | episode reward: 0.79 | training loss: 0.01296 | steps: 31 | epsilon: 0.01
+target network is being updated
+episode: 13500 | episode reward: 0.70 | training loss: 0.00774 | steps: 40 | epsilon: 0.01
+episode: 13600 | episode reward: 0.85 | training loss: 0.00777 | steps: 25 | epsilon: 0.01
+episode: 13700 | episode reward: 0.80 | training loss: 0.01610 | steps: 30 | epsilon: 0.01
+episode: 13800 | episode reward: 0.82 | training loss: 0.01386 | steps: 28 | epsilon: 0.01
+episode: 13900 | episode reward: 0.76 | training loss: 0.00682 | steps: 34 | epsilon: 0.01
+target network is being updated
+episode: 14000 | episode reward: -0.24 | training loss: 0.00784 | steps: 35 | epsilon: 0.01
+episode: 14100 | episode reward: 0.91 | training loss: 0.01235 | steps: 19 | epsilon: 0.01
+episode: 14200 | episode reward: 0.91 | training loss: 0.00922 | steps: 19 | epsilon: 0.01
+episode: 14300 | episode reward: 0.81 | training loss: 0.00925 | steps: 29 | epsilon: 0.01
+episode: 14400 | episode reward: 0.82 | training loss: 0.01495 | steps: 28 | epsilon: 0.01
+target network is being updated
+episode: 14500 | episode reward: 0.84 | training loss: 0.01157 | steps: 26 | epsilon: 0.01
+episode: 14600 | episode reward: 0.74 | training loss: 0.00498 | steps: 36 | epsilon: 0.01
+episode: 14700 | episode reward: 0.76 | training loss: 0.01052 | steps: 34 | epsilon: 0.01
+episode: 14800 | episode reward: 0.72 | training loss: 0.01551 | steps: 38 | epsilon: 0.01
+episode: 14900 | episode reward: 0.89 | training loss: 0.01504 | steps: 21 | epsilon: 0.01
+[7]-  Killed                  python bin/trainer.py --config config/ddqn_v0.1.0.toml --save_path models
