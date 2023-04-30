@@ -10,3 +10,42 @@
      the new ver 0.11 shows no improvement over 0.1
      training new model with larger hidden layers still doesn't seem to converge, steps to complete is ~200 (49*10 for maximum)
      next improvement: one-hot encoding and use the last action chosen as part of the input.
+4/22 improved repo structure
+     today's goal: organize sea_battle_dqn.py
+     finally works... i shouldn't set the rewards to large numbers with huge differences
+     0.2.1: one-hot + last action; 3500 episodes:
+     Episode: 3260, Loss: 6.83033576933667e-05, Epsilon: 0.00998645168764533, Steps to complete: 24
+     Episode: 3280, Loss: 8.667529618833214e-05, Epsilon: 0.00998645168764533, Steps to complete: 24
+     Episode: 3300, Loss: 6.79210206726566e-05, Epsilon: 0.00998645168764533, Steps to complete: 27
+     Episode: 3320, Loss: 5.839686491526663e-05, Epsilon: 0.00998645168764533, Steps to complete: 31
+     Episode: 3340, Loss: 7.395146531052887e-05, Epsilon: 0.00998645168764533, Steps to complete: 38
+     Episode: 3360, Loss: 7.044956873869523e-05, Epsilon: 0.00998645168764533, Steps to complete: 26
+     Episode: 3380, Loss: 0.00010497208859305829, Epsilon: 0.00998645168764533, Steps to complete: 21
+     Episode: 3400, Loss: 9.763846173882484e-05, Epsilon: 0.00998645168764533, Steps to complete: 30
+     Episode: 3420, Loss: 7.538014324381948e-05, Epsilon: 0.00998645168764533, Steps to complete: 30
+     Episode: 3440, Loss: 5.732289355364628e-05, Epsilon: 0.00998645168764533, Steps to complete: 25
+     Episode: 3460, Loss: 8.03233269834891e-05, Epsilon: 0.00998645168764533, Steps to complete: 26
+     Episode: 3480, Loss: 5.7267687225248665e-05, Epsilon: 0.00998645168764533, Steps to complete: 32
+     0.2.2: one-hot + last action; 6000 episodes;
+     Episode: 5580, Loss: 0.0006477560382336378, Epsilon: 0.00998645168764533, Steps to complete: 23
+     Episode: 5600, Loss: 0.0010723448358476162, Epsilon: 0.00998645168764533, Steps to complete: 18
+     Episode: 5620, Loss: 0.0008745631203055382, Epsilon: 0.00998645168764533, Steps to complete: 33
+     Episode: 5640, Loss: 0.0012952240649610758, Epsilon: 0.00998645168764533, Steps to complete: 22
+     Episode: 5660, Loss: 0.0005613144603557885, Epsilon: 0.00998645168764533, Steps to complete: 25
+     Episode: 5680, Loss: 0.0007040578057058156, Epsilon: 0.00998645168764533, Steps to complete: 20
+     Episode: 5700, Loss: 0.0017398456111550331, Epsilon: 0.00998645168764533, Steps to complete: 23
+     Episode: 5720, Loss: 0.0007664738805033267, Epsilon: 0.00998645168764533, Steps to complete: 22
+     Episode: 5740, Loss: 0.00034564395900815725, Epsilon: 0.00998645168764533, Steps to complete: 24
+     Episode: 5760, Loss: 0.0013082540826871991, Epsilon: 0.00998645168764533, Steps to complete: 29
+     Episode: 5780, Loss: 0.0003618979826569557, Epsilon: 0.00998645168764533, Steps to complete: 23
+     Episode: 5800, Loss: 0.0002951952046714723, Epsilon: 0.00998645168764533, Steps to complete: 34
+     Episode: 5820, Loss: 0.0008323941146954894, Epsilon: 0.00998645168764533, Steps to complete: 25
+     Episode: 5840, Loss: 0.0004208995960652828, Epsilon: 0.00998645168764533, Steps to complete: 21
+     Episode: 5860, Loss: 0.0021627547685056925, Epsilon: 0.00998645168764533, Steps to complete: 28
+     Episode: 5880, Loss: 0.0004226358432788402, Epsilon: 0.00998645168764533, Steps to complete: 28
+     Episode: 5900, Loss: 0.0004482130752876401, Epsilon: 0.00998645168764533, Steps to complete: 27
+     Episode: 5920, Loss: 0.0003895494737662375, Epsilon: 0.00998645168764533, Steps to complete: 33
+     Episode: 5940, Loss: 0.000297995051369071, Epsilon: 0.00998645168764533, Steps to complete: 30
+     Episode: 5960, Loss: 0.002398234326392412, Epsilon: 0.00998645168764533, Steps to complete: 28
+     Episode: 5980, Loss: 0.00029560859547927976, Epsilon: 0.00998645168764533, Steps to complete: 25
+     0.3.0 one-hot + last action + dynamic rewards(for missed shots); 10000 episodes:
