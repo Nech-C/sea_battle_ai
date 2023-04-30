@@ -177,7 +177,16 @@ class SeaBattleBoard:
         Returns:
         int: The step of the game.
         """
-        return self.steps 
+        return self.steps
+    
+    def num_unexpolored_squares(self):
+        """
+        Get the number of unexplored squares on the board.
+        
+        Returns:
+        int: The number of unexplored squares on the board.
+        """
+        return self.board.count('.')
 
 class SeaBattleGame:
     def __init__(self):
@@ -324,20 +333,22 @@ class SeaBattleEnvironment(gym.Env):
     def step(self, action):
         row, col = divmod(action, self.board.board_size)
         result = self.board.attack_square(row, col)
-
+        
         if result == 'hit':
             reward = 0
         elif result == 'sunk':
             reward = 0
         elif result == 'miss':
-            reward = -1
+            # unexplored_squares = self.board.num_unexpolored_squares()
+            # reward = 1.00012**(22*unexplored_squares)-1
+            reward = -0.01
         else:
-            reward = -100
+            reward = -1
 
         done = self.board.is_game_over()
         
         if done:
-            reward = 10000
+            reward = 1
         
         observation = self._get_observation()
         info = {}
@@ -367,4 +378,23 @@ class SeaBattleEnvironment(gym.Env):
         print("  " + " ".join(str(i) for i in range(self.board.board_size)))
         for i, row in enumerate(self.board.board):
             print(str(i) + " " + " ".join(cell if cell != "S" else "." for cell in row))
+            
+    def get_random_valid_action(self):
+        """
+            Get a random valid action (index of an unrevealed square).
 
+            Returns:
+            int: The index of an unrevealed square.
+        """
+        unrevealed_squares = []
+        for i, row in enumerate(self.board.board):
+            for j, cell in enumerate(row):
+                if cell not in ['M', 'X']:
+                    unrevealed_squares.append((i, j))
+
+        if unrevealed_squares:
+            selected_square = np.random.choice(len(unrevealed_squares))
+            row, col = unrevealed_squares[selected_square]
+            return row * self.board.board_size + col
+        else:
+            raise ValueError("No unrevealed squares left")
