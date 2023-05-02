@@ -1,4 +1,4 @@
-model_name = "ddqn_v0.1.0.pth"
+model_name = "ddqn_v0.1.1.pth"
 
 [architecture]
 layer_sizes = [147, 512, 128, 49]

@@ -14,7 +14,7 @@ epsilon_end = 0.01
 epsilon_decay = 0.995
 target_update_freq = 500
 memory_capacity = 50000
-batch_size = 128
+batch_size = 1
 tau = 0.1
 
 

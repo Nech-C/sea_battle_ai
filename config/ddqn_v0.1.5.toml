@@ -1,0 +1,26 @@
+model_name = "ddqn_v0.1.5.pth"
+
+[architecture]
+layer_sizes = [147, 800, 256, 49]
+
+[hyperparameters]
+learning_rate = 0.00015
+gamma = 0.99
+epsilon_start = 1.0
+epsilon_end = 0.01
+epsilon_decay = 0.99965
+target_update_freq = 800
+memory_capacity = 50000
+batch_size = 512
+tau = 0.1
+dropout1 = 0.2
+droupout2 = 0.12
+
+
+[training]
+num_episodes = 38000
+save_interval = 500
+invalid_action_limit = 20
+
+[info]
+# add dropout layer
