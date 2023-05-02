@@ -19,9 +19,17 @@ architecture = config["architecture"]
 hyperparameters = config["hyperparameters"]
 training = config["training"]
 model_name = config['model_name']
+rewards = None
+if 'rewards' in config:
+    rewards = config['rewards']
 # Create the DoubleDQN instance
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-double_dqn = src.sea_battle_ddqn.DoubleDQN(architecture, hyperparameters, training, device,model_name)
+
+network_num = 1
+if 'network_num' in architecture:
+    network_num = architecture['network_num']
+double_dqn = src.sea_battle_ddqn.DoubleDQN(architecture, hyperparameters, training, device,model_name,rewards,network_num)
 
 # Run the DoubleDQN model and pass the model_save_path
 double_dqn.run(args.save_path)
+double_dqn.close()
