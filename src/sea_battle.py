@@ -323,7 +323,7 @@ class SeaBattleGame:
 class UnrevealedSquaresSpace(gym.Space):
     def __init__(self, board):
         self.board = board
-        super().__init__(shape=None, dtype=np.int)
+        super().__init__(shape=None, dtype=int)
 
     def sample(self):
         unrevealed_squares = []
@@ -350,6 +350,8 @@ class SeaBattleEnvironment(gym.Env):
         self.action_space = UnrevealedSquaresSpace(self.board)
         self.observation_space = spaces.Box(low=0, high=3, shape=(self.board.board_size, self.board.board_size), dtype=np.uint8)
         self.rewards=rewards
+        if rewards is None:
+            self.rewards = {'hit': 0, 'sunk':0, 'miss':-0.01,'other': -1, 'done':1}
 
     def step(self, action):
         row, col = divmod(action, self.board.board_size)
