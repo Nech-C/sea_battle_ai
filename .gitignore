@@ -9,3 +9,5 @@ lib/__pycache__/__init__.cpython-310.pyc
 src/__pycache__/sea_battle_ddqn.cpython-310.pyc
 lib/__pycache__/constants.cpython-310.pyc
 lib/__pycache__/utils.cpython-310.pyc
+src/__pycache__/sea_battle_pg.cpython-310.pyc
+src/__pycache__/sea_battle_a2c.cpython-310.pyc
