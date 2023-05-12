@@ -1,0 +1,13 @@
+model_name = "a2c_v0.1.0.pth"
+
+[architecture]
+layer_sizes = [147, 256, 128, 49]
+
+[hyperparameters]
+learning_rate = 0.001
+gamma = 0.99
+num_steps = 10
+entropy_coefficient = 0.01
+
+[training]
+num_episodes = 100

@@ -23,7 +23,7 @@ num_episodes = 20000
 save_interval = 500
 invalid_action_limit = 20
 
-[rewards]
+[reward_function]
 hit = 0.01
 sunk = 0.01
 miss = -0.02
