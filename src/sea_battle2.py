@@ -10,7 +10,7 @@ RENDER_MAPPING={0: '.', 1: '.', 2: 'M', 3:'X'}
 
 OBSERVATION_MAPPING={0: 0, 1: 0, 2: 2, 3:3}
 
-OBSERVATION_DICT = {"unknown": 0, 'miss': 2, 'hit': 3}
+OBSERVATION_DICT={"unknown": 0, 'miss': 2, 'hit': 3}
 
 
 class GuessResult(Enum):
@@ -29,20 +29,20 @@ REWARD_MAPPING = {
     GuessResult.SHIP_SUNK: 0,
     GuessResult.FREE_SHIP_SUNK: 0.5,
     GuessResult.INVALID_GUESS: -1.0,
-    GuessResult.GAME_OVER: 0
+    GuessResult.GAME_OVER: 0.1
 }
 
-class SeaBattleEnv(gym.Env):
-    class Observation():
+
+class Observation():
         def __init__(self, board: np.ndarray):
-            self.board = board.copy()
+            self.board = board
             self.board[self.board == CELL_MAPPING['empty']] = OBSERVATION_MAPPING[CELL_MAPPING['empty']]
             self.board[self.board == CELL_MAPPING['ship']] = OBSERVATION_MAPPING[CELL_MAPPING['ship']]
             self.board[self.board == CELL_MAPPING['miss']] = OBSERVATION_MAPPING[CELL_MAPPING['miss']]
             self.board[self.board == CELL_MAPPING['hit']] = OBSERVATION_MAPPING[CELL_MAPPING['hit']]
             
         def get_one_hot_encoding(self):
-            one_hot_board = np.zeros((*self.board.shape,3))
+            one_hot_board = np.zeros((*self.board.shape, 3))
             
             for i in range(one_hot_board.shape[0]):
                 for j in range(one_hot_board.shape[1]):
@@ -58,14 +58,16 @@ class SeaBattleEnv(gym.Env):
 
         def get_board(self):
             return self.board
-        
+
+class SeaBattleEnv(gym.Env):
     def __init__(self, shape=(7,7), reward_func=REWARD_MAPPING):
         super(SeaBattleEnv, self).__init__()
-        self.reset(shape)
+        self.shape = shape
+        self.reset()
         self.reward_function = reward_func
     
     def observation(self):
-        return self.Observation(self.board)
+        return Observation(self.board.copy())
         
     def step(self, action: int):
         """advance the game
@@ -81,19 +83,22 @@ class SeaBattleEnv(gym.Env):
         row, col = divmod(action, self.board.shape[1])
         result = self.attack_square(row, col)
         
+        self.step_count += 1
         if result != GuessResult.INVALID_GUESS:
             self.tot_guesses += 1
-            if result != GuessResult.FREE_SHIP_SUNK or result != GuessResult.FREE_HIT:
+            if result != GuessResult.FREE_SHIP_SUNK and result != GuessResult.FREE_HIT and result != GuessResult.GAME_OVER:
                 self.effective_guesses += 1
         
-        info = ""
+        info = {
+            'ships': np.count_nonzero(self.board == CELL_MAPPING['ship'])
+        }
         return (self.observation(), self.reward_function[result], result == GuessResult.GAME_OVER, info)
         
-    def reset(self, shape: Tuple):
+    def reset(self):
         self.step_count = 0
         self.tot_guesses = 0
         self.effective_guesses = 0
-        self.board: np.ndarray = np.full(shape, CELL_MAPPING['empty'])
+        self.board: np.ndarray = np.full(self.shape, CELL_MAPPING['empty'])
         self.ships: List[Dict[str, Any]] = [
             {"size": 4, "location": [], "hits": 0},
             {"size": 3, "location": [], "hits": 0},
@@ -101,7 +106,7 @@ class SeaBattleEnv(gym.Env):
             {"size": 1, "location": [], "hits": 0}
         ]
         self.place_ships_randomly()
-        self.previous_guess_result = False
+        self.last_guess_correct = False
     
         return self.observation()
 
@@ -206,15 +211,16 @@ class SeaBattleEnv(gym.Env):
                     if 0 <= r < self.board.shape[0] and 0 <= c < self.board.shape[1] and self.board[r, c] == CELL_MAPPING['empty']:
                         self.board[r, c] = CELL_MAPPING['miss']
     
-    def attack_square(self, row: int, col: int) -> GuessResult:
-        """Attack the square at the given row and column.
+    def attack_square(self, row: int, col: int):
+        """
+            Attack the square at the given row and column.
 
-        Args:
-        row (int): The row of the square to attack.
-        col (int): The column of the square to attack.
+            Args:
+            row (int): The row of the square to attack.
+            col (int): The column of the square to attack.
 
-        Returns:
-        GuessResult: An Enum member representing the result of the attack: NO_HIT, SHIP_HIT, FREE_HIT, SHIP_SUNK, FREE_SHIP_SUNK, INVALID_GUESS, or GAME_OVER.
+            Returns:
+            GuessResult: An Enum member representing the result of the attack: NO_HIT, SHIP_HIT, FREE_HIT, SHIP_SUNK, FREE_SHIP_SUNK, INVALID_GUESS,  GAME_OVER.
         """
         if row < 0 or row >= self.board.shape[0] or col < 0 or col >= self.board.shape[1]:
             return GuessResult.INVALID_GUESS
@@ -224,11 +230,13 @@ class SeaBattleEnv(gym.Env):
             for ship in self.ships:
                 if (row, col) in ship["location"]:
                     ship["hits"] += 1
-                    if self.step_count == 0:
+                    if self.last_guess_correct:
                         guess_result = GuessResult.FREE_HIT
+                        
                     else:
                         guess_result = GuessResult.SHIP_HIT
-
+                        self.last_guess_correct = True
+        
                     if self.is_ship_sunk(ship):
                         self.reveal_surrounding_squares(ship)
                         if self.is_game_over():
@@ -239,18 +247,44 @@ class SeaBattleEnv(gym.Env):
                         return guess_result
         elif self.board[row, col] == CELL_MAPPING['empty']:
             self.board[row, col] = CELL_MAPPING['miss']
+            self.last_guess_correct = False
             return GuessResult.NO_HIT
         else:
             return GuessResult.INVALID_GUESS
         
-        
-        
+    def __str__(self):
+        board_str = "  " + " ".join(str(i) for i in range(self.board.shape[1])) + "\n"
+        for i, row in enumerate(self.board):
+            board_str += str(i) + " " + " ".join(RENDER_MAPPING[cell] for cell in row) + "\n"
+        return board_str
+
+    def get_stats(self):
+        return (self.step_count, self.tot_guesses, self.effective_guesses)
+
+
 if __name__ == "__main__":
-    shape = (7,7)
-    my_env = SeaBattleEnv(shape)
-    done = False
-    while not done:
-        action = int(input('Action: '))
-        _, _, done, _ = my_env.step(action)
-        my_env.render()
+    shape = (4,4)
+    env = SeaBattleEnv(shape)
+    for step in range(200):
+        env.render()
+        action = int(input("Enter action:"))
+        obs, reward, done, info = env.step(action)
+
+        print("----------result:------------")
+        print("obs:")
+        print(obs.get_board())
+        print("obs_one_hot:")
+        print(obs.get_one_hot_encoding().flatten())
+        step, tot_guesses, effective_guesses = env.get_stats()
+        print("stats:")
+        print(f"reward: {reward}")
+        print(f"step: {step}")
+        print(f"tot_guesses: {tot_guesses}")
+        print(f"effective_guesses: {effective_guesses}")
+        print("---------------------------------")
+
+        if done:
+            print("Game over!")
+            break
+    env.close()
         
