@@ -14,13 +14,6 @@ args = parser.parse_args()
 # Load the TOML configuration file
 config = toml.load(args.config)
 
-# Extract the dictionaries for architecture, hyperparameters, and training
-# architecture = config["architecture"]
-# hyperparameters = config["hyperparameters"]
-# training = config["training"]
-# model_name = config['model_name']
-# reward_function = config['reward_function']
-
 # Create the PolicyGradient instance
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 policy_gradient_agent = src.sea_battle_pg.PolicyGradient(config, device)
