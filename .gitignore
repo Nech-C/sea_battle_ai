@@ -14,3 +14,8 @@ src/__pycache__/sea_battle_a2c.cpython-310.pyc
 src/__pycache__/sea_battle2_pg.cpython-310.pyc
 src/__pycache__/sea_battle2.cpython-310.pyc
 src/__pycache__/sea2_ddqn.cpython-310.pyc
+src/__pycache__/sea2_dqn.cpython-311.pyc
+.gitignore
+src/__pycache__/sea_battle2.cpython-311.pyc
+lib/__pycache__/constants.cpython-311.pyc
+src/__pycache__/sea2_ddqn.cpython-311.pyc
