@@ -5,13 +5,9 @@ from enum import Enum
 from typing import (Any, Dict, List, Tuple)
 
 CELL_MAPPING={'empty': 0, 'ship': 1, 'miss': 2, 'hit': 3}
-
 RENDER_MAPPING={0: '.', 1: '.', 2: 'M', 3:'X'}
-
 OBSERVATION_MAPPING={0: 0, 1: 0, 2: 2, 3:3}
-
 OBSERVATION_DICT={"unknown": 0, 'miss': 2, 'hit': 3}
-
 
 class GuessResult(Enum):
     NO_HIT = 1
@@ -29,7 +25,7 @@ REWARD_MAPPING = {
     GuessResult.SHIP_SUNK: 0,
     GuessResult.FREE_SHIP_SUNK: 0.5,
     GuessResult.INVALID_GUESS: -1.0,
-    GuessResult.GAME_OVER: 0.1
+    GuessResult.GAME_OVER: 0.5
 }
 
 
@@ -270,7 +266,12 @@ class SeaBattleEnv(gym.Env):
         return board_str
 
     def get_stats(self)->tuple: 
-        return (self.step_count, self.tot_guesses, self.effective_guesses)
+        """return the current stats of the env
+
+        Returns:
+            tuple: (step_count, total num of guesses, num of effective guesses, total reward)
+        """
+        return (self.step_count, self.tot_guesses, self.effective_guesses, self.tot_reward)
 
 if __name__ == "__main__":
     shape = (4,4)

@@ -5,8 +5,7 @@ import torch
 import os
 from collections import deque
 from abc import ABC, abstractmethod
-from lib.constants import CELL_MAPPING
-from src.sea_battle2 import GuessResult
+from src.sea_battle import GuessResult
 from typing import Dict
 from torch.utils.tensorboard import SummaryWriter
 
@@ -15,7 +14,7 @@ from torch.utils.tensorboard import SummaryWriter
 class ReplayBuffer():
     """A simple replay buffer implementation to store and sample experiences."""
     def __init__(self, max_size: int):
-        self.buffer = deque(maxlen=max_size)
+        self.buffer = deque([], maxlen=max_size)
     def push(self, experience: tuple):
         self.buffer.append(experience)
     def sample(self, batch_size):
@@ -39,7 +38,7 @@ class Training_instance(ABC):
         pass
     
     def close(self, model_save_path):
-        torch.save(self.online_network.state_dict(), os.path.join(model_save_path, self.model_name))
+        torch.save(self.network.state_dict(), os.path.join(model_save_path, self.model_name))
         self.writer.close()
     
 

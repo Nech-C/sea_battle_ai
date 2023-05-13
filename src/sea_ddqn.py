@@ -4,7 +4,7 @@ import torch.optim as optim
 import numpy as np
 import os
 from collections import deque
-from sea_battle import SeaBattleEnv, Observation, CELL_MAPPING, GuessResult
+from src.sea_battle import SeaBattleEnv, Observation, CELL_MAPPING, GuessResult
 from lib.utils import Training_instance, ReplayBuffer
 from torch.utils.tensorboard import SummaryWriter
 from lib.utils import load_reward_function
