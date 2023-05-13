@@ -59,6 +59,15 @@ class Observation():
         def get_board(self):
             return self.board
 
+        def get_random_valid_action(self):
+            """
+            Get a random valid action.
+            
+            Returns:
+            int: A random valid action."""
+            valid_actions = np.where(self.board.flatten() == OBSERVATION_DICT['unknown'])
+            return npr.choice(valid_actions[0])
+        
 class SeaBattleEnv(gym.Env):
     def __init__(self, shape=(7,7), reward_func=REWARD_MAPPING):
         super(SeaBattleEnv, self).__init__()
@@ -92,12 +101,14 @@ class SeaBattleEnv(gym.Env):
         info = {
             'ships': np.count_nonzero(self.board == CELL_MAPPING['ship'])
         }
+        self.tot_reward += self.reward_function[result]
         return (self.observation(), self.reward_function[result], result == GuessResult.GAME_OVER, info)
         
     def reset(self):
         self.step_count = 0
         self.tot_guesses = 0
         self.effective_guesses = 0
+        self.tot_reward = 0
         self.board: np.ndarray = np.full(self.shape, CELL_MAPPING['empty'])
         self.ships: List[Dict[str, Any]] = [
             {"size": 4, "location": [], "hits": 0},
@@ -112,7 +123,7 @@ class SeaBattleEnv(gym.Env):
 
     def render(self):
         print("  " + " ".join(str(i) for i in range(self.board.shape[1])))
-        for i, row in enumerate(self.board):
+        for i, row in enumerate(self.observation().get_board()):
             print(str(i) + " " + " ".join(RENDER_MAPPING[cell] for cell in row))
     
     def close(self):
@@ -258,9 +269,8 @@ class SeaBattleEnv(gym.Env):
             board_str += str(i) + " " + " ".join(RENDER_MAPPING[cell] for cell in row) + "\n"
         return board_str
 
-    def get_stats(self):
+    def get_stats(self)->tuple: 
         return (self.step_count, self.tot_guesses, self.effective_guesses)
-
 
 if __name__ == "__main__":
     shape = (4,4)
@@ -268,6 +278,7 @@ if __name__ == "__main__":
     for step in range(200):
         env.render()
         action = int(input("Enter action:"))
+        action = env.observation().get_random_valid_action()
         obs, reward, done, info = env.step(action)
 
         print("----------result:------------")
@@ -285,6 +296,6 @@ if __name__ == "__main__":
 
         if done:
             print("Game over!")
-            break
+            env.reset()
     env.close()
         

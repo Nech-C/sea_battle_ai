@@ -3,19 +3,21 @@ model_name = "sea2_dqn_v0.1.0.pth"
 type = "dqn"
 
 [architecture]
-input_size = 147
-hidden_size = [512, 128]
-output_size = 49
+board_width = 6
+board_length = 6
+input_size = 108
+hidden_size = [256, 64]
+output_size = 36
 
 [hyperparameters]
 learning_rate = 0.0001
 gamma = 0.99
-epsilon_start = 1.0
-epsilon_decay = 0.995
-epsilon_min = 0.01
+eps_start = 1.0
+eps_decay = 0.996
+eps_min = 0.01
 buffer_size = 20000
-batch_size = 512
-max_step = 300
+batch_size = 64
+invalid_action_limit = 10
 
 [reward_function]
 no_hit = -0.1

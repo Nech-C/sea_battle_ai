@@ -52,3 +52,14 @@
 4/30: huge bug found. my _get_observation() returns all the information including the locations of unexplored ships! how does it still take more than 10 steps??
       implemented ddqn; performs better the qdn. 
       0.1.1 achieved lower losses with more neurons, it seems there is still room to lower the loss with more training episodes
+      ddqn_v0.1.5 has a significant lower loss, but more or less the same ave step comparing to v0.1.4?
+      the performance(ave step to complete the game) worsens after 18,000 episodes and all the models seem to converge to a rather random policy.
+      As i tested before, a policy that selects a random valid action will complete games at average 29 steps.
+      tensorboard --logdir=runs --bind_all --reload_interval=5
+      python bin/pg_trainer.py --config config/pg_v0.1.0.toml --save_path models/
+5/10 refactored sea_battle.py as sea_battle2.py. there is only one gym.Env class SeaBattleEnv that implements all functionality needed for
+     training. Improved efficency and readablility. 
+     tensorboard: tensorboard --logdir runs --bind_all
+     ip addr
+5/11：policy gradient still won't converge. will implement a ddqn with the new gym.Env(sea2)
+      python bin/sea2_trainer.py --config config/sea2/sea2_dqn_v0.1.0.toml --save_path models/sea2

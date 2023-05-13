@@ -1,11 +1,15 @@
 import random
 import numpy as np
 import toml
+import torch
+import os
 from collections import deque
 from abc import ABC, abstractmethod
 from lib.constants import CELL_MAPPING
 from src.sea_battle2 import GuessResult
 from typing import Dict
+from torch.utils.tensorboard import SummaryWriter
+
 
 
 class ReplayBuffer():
@@ -28,10 +32,16 @@ class Training_instance(ABC):
         self.training = config["training"]
         self.reward_function = load_reward_function(config["reward_function"])
         self.device = device
+        self.writer = SummaryWriter(log_dir=f'./runs/{self.model_name}', flush_secs=1)
 
     @abstractmethod
     def run(self):
         pass
+    
+    def close(self, model_save_path):
+        torch.save(self.online_network.state_dict(), os.path.join(model_save_path, self.model_name))
+        self.writer.close()
+    
 
 def load_reward_function(reward_function: Dict) -> Dict[GuessResult, float]:
     # Map the keys back to the Enum members

@@ -20,7 +20,10 @@ config = toml.load(args.config)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 if config['model']['type'] == 'ddqn':
     agent = DDQNAgent(config, device)
-
+elif config['model']['type'] == 'dqn':
+    agent = DQNAgent(config, device)
+else:
+    raise ValueError('Unknown model type')
 # Run the DDQNAgent model and pass the model_save_path
 agent.run()
 agent.close(args.save_path)
