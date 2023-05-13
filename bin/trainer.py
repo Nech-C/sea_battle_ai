@@ -10,8 +10,8 @@ root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Add the root directory to the sys.path
 sys.path.append(root_dir)
 
-from sea_ddqn import DDQNAgent
-from sea_dqn import DQNAgent
+from src.sea_ddqn import DDQNAgent
+from src.sea_dqn import DQNAgent
 
 # Rest of the script...
 
