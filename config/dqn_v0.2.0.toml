@@ -1,23 +1,23 @@
 [model]
-model_name = "sea2_dqn_v0.1.0"
+model_name = "sea2_dqn_v0.2.0"
 type = "dqn"
 
 [architecture]
 board_width = 6
 board_length = 6
 input_size = 108
-hidden_size = [128, 64]
+hidden_size = [189, 128]
 output_size = 36
 
 [hyperparameters]
 learning_rate = 0.0001
-gamma = 0.95
+gamma = 0.98
 eps_start = 1.0
-eps_decay = 0.996
+eps_decay = 0.9968
 eps_min = 0.01
-buffer_size = 15000
+buffer_size = 18000
 batch_size = 512
-invalid_action_limit = 5
+invalid_action_limit = 8
 
 [reward_function]
 no_hit = -0.05
@@ -29,4 +29,4 @@ invalid_guess = -1
 game_over = 0.1
 
 [training]
-num_episodes = 40000
+num_episodes = 53000
