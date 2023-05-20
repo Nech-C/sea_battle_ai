@@ -7,7 +7,7 @@ from lib.utils import Training_instance, ReplayBuffer, load_reward_function
 from torch.utils.tensorboard import SummaryWriter
 import numpy.random as npr
 class DQN(nn.Module):
-    def __init__(self, device, layer_size):
+    def __init__(self, layer_size):
         super().__init__()
         self.fc1 = nn.Linear(layer_size[0], layer_size[1])
         self.fc2 = nn.Linear(layer_size[1], layer_size[2])
@@ -23,7 +23,7 @@ class DQNAgent(Training_instance):
     def __init__(self, config: dict, device):
         super().__init__(config, device)
         network_size = [self.architecture['input_size'], *self.architecture['hidden_size'], self.architecture['output_size']]
-        self.network = DQN(device, network_size).to(self.device)
+        self.network = DQN(network_size).to(self.device)
         self.memory = ReplayBuffer(self.hyperparameters['buffer_size'])
         self.optimizer = torch.optim.AdamW(self.network.parameters(), lr=self.hyperparameters['learning_rate'])
         

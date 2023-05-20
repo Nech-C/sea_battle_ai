@@ -38,7 +38,7 @@ class Training_instance(ABC):
         pass
     
     def close(self, model_save_path):
-        torch.save(self.network.state_dict(), os.path.join(model_save_path, self.model_name))
+        torch.save(self.network, os.path.join(model_save_path, self.model_name + ".pth"))
         self.writer.close()
     
 
