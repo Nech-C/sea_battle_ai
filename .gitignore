@@ -21,3 +21,6 @@ lib/__pycache__/constants.cpython-311.pyc
 src/__pycache__/sea2_ddqn.cpython-311.pyc
 lib/__pycache__/__init__.cpython-311.pyc
 lib/__pycache__/utils.cpython-311.pyc
+src/__pycache__/sea_dqn.cpython-311.pyc
+src/__pycache__/sea_ddqn.cpython-311.pyc
+src/__pycache__/sea_battle.cpython-311.pyc
