@@ -14,24 +14,31 @@ class PolicyShared(nn.Module):
         super(PolicyShared, self).__init__()
         # shared layers
         self.fc_shared = nn.Linear(shared_layers[0], shared_layers[1])
+        nn.init.kaiming_normal_(self.fc_shared.weight, nonlinearity='relu')
         
         # actor's layers
         self.fc1_actor = nn.Linear(shared_layers[1], actor_layers[0])
+        nn.init.kaiming_normal_(self.fc1_actor.weight, nonlinearity='relu')
         self.fc2_actor = nn.Linear(actor_layers[0], actor_layers[1])
+        nn.init.kaiming_normal_(self.fc2_actor.weight, nonlinearity='relu')
         
         # critic's layers
         self.fc1_critic = nn.Linear(shared_layers[1], critic_layers[0])
+        nn.init.kaiming_normal_(self.fc1_critic.weight, nonlinearity='relu')
         self.fc2_critic = nn.Linear(critic_layers[0], critic_layers[1])
+        nn.init.kaiming_normal_(self.fc2_critic.weight, nonlinearity='relu')
         
         # action & reward buffer
         self.saved_actions = []
         self.rewards = []
+
+        
     def forward(self, x):
         # shared layer
         x = F.relu(self.fc_shared(x))
         
         # actor: 
-        action_prob = F.relu(self.fc1_actor(x))
+        action_prob = self.fc1_actor(x)
         action_prob = F.softmax(self.fc2_actor(action_prob), dim=-1)
         
         # critic:
@@ -100,6 +107,9 @@ class A2C(Training_instance):
         loss = torch.stack(policy_losses).sum() + torch.stack(value_losses).sum()
         
         loss.backward()
+        
+        torch.nn.utils.clip_grad_norm_(self.policy.parameters(), max_norm=1.0)
+        
         self.optimizer.step()
         
         del self.policy.rewards[:]
