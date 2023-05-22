@@ -24,3 +24,4 @@ lib/__pycache__/utils.cpython-311.pyc
 src/__pycache__/sea_dqn.cpython-311.pyc
 src/__pycache__/sea_ddqn.cpython-311.pyc
 src/__pycache__/sea_battle.cpython-311.pyc
+src/__pycache__/sea_a2c.cpython-311.pyc
