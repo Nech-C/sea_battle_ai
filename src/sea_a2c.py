@@ -52,8 +52,8 @@ class PolicyShared(nn.Module):
 class A2C(Training_instance):
     def __init__(self, config, device):
         super().__init__(config, device)
-        self.policy = self.init_policy().to(device)
-        self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=self.hyperparameters["learning_rate"])
+        self.network = self.init_policy().to(device)
+        self.optimizer = torch.optim.Adam(self.network.parameters(), lr=self.hyperparameters["learning_rate"])
     def init_policy(self)-> nn.Module:
         if self.architecture['nn_type'] == 'shared':
             # extract network info
@@ -73,21 +73,21 @@ class A2C(Training_instance):
 
         state = observation.get_one_hot_encoding().flatten()
         state = torch.tensor(state).float().unsqueeze(0).to(self.device)
-        probs, value = self.policy(state)
+        probs, value = self.network(state)
         m = Categorical(probs)
         action = m.sample()
-        self.policy.saved_actions.append((m.log_prob(action), value))
+        self.network.saved_actions.append((m.log_prob(action), value))
         return action.item()
     
     def update_network(self) -> float:
         R = 0
-        saved_actions = self.policy.saved_actions
+        saved_actions = self.network.saved_actions
         policy_losses = []
         value_losses = []
         returns = []
         gamma = self.hyperparameters['gamma']
         
-        for r in self.policy.rewards[::-1]:
+        for r in self.network.rewards[::-1]:
             R = r + gamma * R
             returns.insert(0, R)
             
@@ -104,16 +104,16 @@ class A2C(Training_instance):
             
         self.optimizer.zero_grad()
         
-        loss = torch.stack(policy_losses).sum() + torch.stack(value_losses).sum()
+        loss = torch.stack(policy_losses).mean() + torch.stack(value_losses).mean()
         
         loss.backward()
         
-        torch.nn.utils.clip_grad_norm_(self.policy.parameters(), max_norm=1.0)
+        torch.nn.utils.clip_grad_norm_(self.network.parameters(), max_norm=1.0)
         
         self.optimizer.step()
         
-        del self.policy.rewards[:]
-        del self.policy.saved_actions[:]
+        del self.network.rewards[:]
+        del self.network.saved_actions[:]
         
         return loss.item()
         
@@ -134,7 +134,7 @@ class A2C(Training_instance):
                     
                 
                 obs, reward, done, info = env.step(action)
-                self.policy.rewards.append(reward)
+                self.network.rewards.append(reward)
                 
                 if reward == self.reward_function[GuessResult.INVALID_GUESS]:
                     invalid_action_count += 1
