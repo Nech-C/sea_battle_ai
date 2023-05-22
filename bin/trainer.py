@@ -12,7 +12,7 @@ sys.path.append(root_dir)
 
 from src.sea_ddqn import DDQNAgent
 from src.sea_dqn import DQNAgent
-
+from src.sea_a2c import A2C
 # Rest of the script...
 
 
@@ -32,6 +32,8 @@ if config['model']['type'] == 'ddqn':
     agent = DDQNAgent(config, device)
 elif config['model']['type'] == 'dqn':
     agent = DQNAgent(config, device)
+elif config['model']['type'] == 'a2c':
+    agent = A2C(config, device)
 else:
     raise ValueError('Unknown model type')
 # Run the DDQNAgent model and pass the model_save_path
