@@ -100,7 +100,8 @@ class A2C(Training_instance):
             policy_losses.append(-log_prob * advantage)
 
             # calculate critic loss
-            value_losses.append(F.smooth_l1_loss(value, torch.tensor([R]).to(self.device)))
+            value_losses.append(F.smooth_l1_loss(value.squeeze(1), torch.tensor([R]).to(self.device)))
+
             
         self.optimizer.zero_grad()
         
@@ -140,6 +141,7 @@ class A2C(Training_instance):
                     invalid_action_count += 1
             
             loss = self.update_network()
-            self.update_tensorboard(episode, env, loss, eps=None)
+            if episode % 20 == 0:
+                self.update_tensorboard(episode, env, loss, eps=None)
                 
             
