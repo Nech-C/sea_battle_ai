@@ -1,0 +1,36 @@
+[model]
+model_name = "sea2_a2c_v0.2.2"
+type = "a2c"
+policy_network = 'PolicyShared'
+
+[architecture]
+nn_type = "shared"
+board_width = 6
+board_length = 6
+shared_hidden = [612]
+
+[architecture.actor]
+actor_hidden_layers = [196]
+
+[architecture.critic ]
+critic_hidden_layers = [196]
+
+[hyperparameters]
+learning_rate = 0.00020
+gamma = 0.99
+invalid_action_limit = 15
+
+[reward_function]
+no_hit = -0.05
+ship_hit = 0.05
+free_hit = 0.1
+ship_sunk = 0.05
+free_ship_sunk = 0.1
+invalid_guess = -1.5
+game_over = 0.1
+
+[training]
+num_episodes = 85000
+max_step = 100
+
+# a2c with shared partly neural networks
