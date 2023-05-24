@@ -1,6 +1,7 @@
 [model]
 model_name = "sea2_dqn_v0.1.0"
-type = "dqn"
+type = "DQNAgent"
+save_path = "models/"
 
 [architecture]
 board_width = 6

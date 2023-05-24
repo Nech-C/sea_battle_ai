@@ -1,5 +1,7 @@
 [model]
 model_name = "sea2_pg_v0.1.0.pth"
+type = "PolicyGradient"
+save_path = "models/"
 
 [architecture]
 layer_sizes = [147, 345, 128, 49]

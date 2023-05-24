@@ -1,6 +1,7 @@
 [model]
 model_name = "ddqn_sea_battle"
-type = "ddqn"
+type = "DDQNAgent"
+save_path = "models/"
 
 [architecture]
 input_size = 147

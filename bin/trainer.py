@@ -20,22 +20,17 @@ from src.sea_a2c import A2C
 # Set up argument parser
 parser = argparse.ArgumentParser()
 parser.add_argument('--config', type=str, required=True, help="Path to the TOML configuration file")
-parser.add_argument('--save_path', type=str, required=True, help="Path to the directory where the trained model will be saved")
 args = parser.parse_args()
 
 # Load the TOML configuration file
 config = toml.load(args.config)
 
-# Create the DDQNAgent instance
+# Create the rl training instance
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-if config['model']['type'] == 'ddqn':
-    agent = DDQNAgent(config, device)
-elif config['model']['type'] == 'dqn':
-    agent = DQNAgent(config, device)
-elif config['model']['type'] == 'a2c':
-    agent = A2C(config, device)
-else:
-    raise ValueError('Unknown model type')
-# Run the DDQNAgent model and pass the model_save_path
-agent.run()
-agent.close(args.save_path)
+class_name = config['model']['type']
+class_obj = globals()[class_name]
+training = class_obj(config, device)
+
+# Run the rl model and pass the model_save_path
+training.run()
+training.close(config['model']['save_path'])

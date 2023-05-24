@@ -1,7 +1,8 @@
 [model]
 model_name = "sea2_a2c_v0.2.2"
-type = "a2c"
+type = "A2C"
 policy_network = 'PolicyShared'
+save_path = "models/"
 
 [architecture]
 nn_type = "shared"
