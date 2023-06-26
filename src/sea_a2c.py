@@ -45,7 +45,10 @@ class PolicyShared(nn.Module):
         value = F.relu(self.fc1_critic(x))
         value = self.fc2_critic(value)
         
-        return action_prob, value
+        if self.training:
+            return action_prob, value
+        else:
+            return action_prob
         
 
 

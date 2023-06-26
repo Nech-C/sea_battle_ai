@@ -13,6 +13,7 @@ sys.path.append(root_dir)
 from src.sea_ddqn import DDQNAgent
 from src.sea_dqn import DQNAgent
 from src.sea_a2c import A2C
+from src.sea_ppo import PPO
 # Rest of the script...
 
 
