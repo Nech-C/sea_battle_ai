@@ -61,6 +61,7 @@ class PPO(Training_instance):
         super().__init__(config, device)
         self.actor, self.critic = self.init_policy()
         self.actor = self.actor.to(device)
+        self.network = self.actor
         self.critic = self.critic.to(device)
         self.optimizer = torch.optim.Adam([
             {'params': self.actor.parameters(), 'lr': self.hyperparameters['learning_rate']},
@@ -177,5 +178,5 @@ class PPO(Training_instance):
             loss = self.update()
             if episode % 20 == 0:
                 self.update_tensorboard(episode, env, loss, eps=None)
-                print(env.get_stats())
+
 

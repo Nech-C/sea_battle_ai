@@ -9,16 +9,16 @@ board_length = 6
 
 
 [architecture.actor]
-actor_hidden_layers = [340, 196]
+actor_hidden_layers = [645, 256]
 
 [architecture.critic]
-critic_hidden_layers = [340, 196]
+critic_hidden_layers = [645, 196]
 
 [hyperparameters]
-learning_rate = 0.0002
+learning_rate = 0.00002
 gamma = 0.99
-invalid_action_limit = 10
-K_epochs = 15 
+invalid_action_limit = 8
+K_epochs = 4
 clip_epsilon = 0.2
 
 [reward_function]
@@ -31,6 +31,6 @@ invalid_guess = -1.5
 game_over = 0.1
 
 [training]
-num_episodes = 30000
+num_episodes = 50000
 
 # ppo with independent action and advantage neural networks
