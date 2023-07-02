@@ -3,3 +3,7 @@ mylib/
 lib/__pycache__/
 .gitignore
 src/__pycache__/
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/vcs.xml
+.idea/sea_battle_ai.iml
+.idea/modules.xml
