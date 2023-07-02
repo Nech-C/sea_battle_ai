@@ -8,6 +8,7 @@ AI agents that can play the Sea Battle game from GamePigeon
 1. DQN
 2. A2C
 3. VPG
+4. PPO
 
 # Implementing:
-1. PPO
+* None
