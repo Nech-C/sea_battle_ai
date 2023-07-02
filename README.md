@@ -9,7 +9,7 @@ This repository contains AI agents that can play the Sea Battle game from GamePi
 
 ## Setup
 
-To run the scripts, you need to have Python installed on your system. The scripts are compatible with Python 3.6 or later.
+To run the scripts, you need to have Python installed on your system. The scripts are compatible with Python 3.8.1 or later.
 
 1. Clone the repository:
 
