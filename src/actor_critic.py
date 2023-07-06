@@ -56,7 +56,7 @@ class Policy(nn.Module):
         """
         x = F.relu(self.affine1(x))
 
-        # actor: choses action to take from state s_t
+        # actor: chooses action to take from state s_t
         # by returning probability of each action
         action_prob = F.softmax(self.action_head(x), dim=-1)
 

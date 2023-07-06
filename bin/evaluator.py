@@ -17,10 +17,11 @@ from src.sea_dqn import DQNAgent, DQN
 from src.sea_battle import SeaBattleEnv, Observation, GuessResult, OBSERVATION_DICT
 
 
-def load_model(model_path, type):
-    model = torch.load(model_path)
+def load_model(model_path):
+    model: torch.nn.Module = torch.load(model_path)
     model.eval()  # Set the model to evaluation mode
     return model
+
 
 def evaluate_random_policy(env: SeaBattleEnv, num_games=1000):
     """evaluate the performance of a random policy by call the Observation.get_random_valid_action.
@@ -52,9 +53,10 @@ def evaluate_random_policy(env: SeaBattleEnv, num_games=1000):
     avg_effective_guesses = total_effective_guesses / num_games
     avg_steps = total_steps / num_games
 
-    print(f"Random policy: \nAverage Reward: {avg_reward}\nAverage Effective Guesses: {avg_effective_guesses}\nAverage Steps: {avg_steps}")
+    print(
+        f"Random policy: \nAverage Reward: {avg_reward}\nAverage Effective Guesses: {avg_effective_guesses}\nAverage Steps: {avg_steps}")
 
-    
+
 def evaluate_agent(env: SeaBattleEnv, model: torch.nn.Module, config, num_games=1000):
     total_rewards = 0
     total_effective_guesses = 0
@@ -80,11 +82,12 @@ def evaluate_agent(env: SeaBattleEnv, model: torch.nn.Module, config, num_games=
     avg_effective_guesses = total_effective_guesses / num_games
     avg_steps = total_steps / num_games
 
-    print(f"Agent performance: \nAverage Reward: {avg_reward}\nAverage Effective Guesses: {avg_effective_guesses}\nAverage Steps: {avg_steps}")
-
+    print(
+        f"Agent performance: \nAverage Reward: {avg_reward}\nAverage Effective Guesses: {avg_effective_guesses}\nAverage Steps: {avg_steps}")
 
 
 import tkinter as tk
+
 
 def create_square(canvas, x, y, size, text, fill_color):
     canvas.create_rectangle(x, y, x + size, y + size, fill=fill_color, outline='black')
@@ -148,18 +151,17 @@ def user_play(env: SeaBattleEnv, model, config):
 
     display_board_gui(canvas, board, q_values, width, cell_size)
 
-    canvas.bind("<Button-1>", lambda event: on_canvas_click(event, env, obs, model, config, root, canvas, width, cell_size))
+    canvas.bind("<Button-1>",
+                lambda event: on_canvas_click(event, env, obs, model, config, root, canvas, width, cell_size))
     root.mainloop()
 
 
-
-          
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_path', type=str, required=True, help='Path to model checkpoint.')
     parser.add_argument('--config', type=str, required=True, help='Path to game configuration.')
     args = parser.parse_args()
-    
+
     # Load model and configuration
     config = toml.load(args.config)
     hyperparameters = config['hyperparameters']
@@ -181,6 +183,6 @@ def main():
         else:
             print("Invalid choice. Please choose 1, 2, or 3.")
 
+
 if __name__ == '__main__':
     main()
-
