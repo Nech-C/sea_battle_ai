@@ -1,0 +1,36 @@
+[model]
+model_name = "sea2_ppo_v0.1.2"
+type = "PPO"
+save_path = "models/"
+
+[architecture]
+board_width = 6
+board_length = 6
+
+
+[architecture.actor]
+actor_hidden_layers = [612, 256]
+
+[architecture.critic]
+critic_hidden_layers = [645, 256]
+
+[hyperparameters]
+learning_rate = 0.00002
+gamma = 0.99
+invalid_action_limit = 10
+K_epochs = 3
+clip_epsilon = 0.15
+
+[reward_function]
+no_hit = -0.05
+ship_hit = 0.05
+free_hit = 0.1
+ship_sunk = 0.05
+free_ship_sunk = 0.1
+invalid_guess = -1.5
+game_over = 0.1
+
+[training]
+num_episodes = 50000
+
+# ppo with independent action and advantage neural networks
