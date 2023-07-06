@@ -7,16 +7,17 @@ from lib.utils import Training_instance, ReplayBuffer, load_reward_function
 from torch.distributions import Categorical
 import torch.nn.utils as utils
 
+
 class PolicyNetwork(nn.Module):
     def __init__(self, layer_dimensions):
         super(PolicyNetwork, self).__init__()
         self.layers = nn.ModuleList()
-        
+
         for i in range(len(layer_dimensions) - 1):
-            layer = nn.Linear(layer_dimensions[i], layer_dimensions[i+1])
+            layer = nn.Linear(layer_dimensions[i], layer_dimensions[i + 1])
             nn.init.kaiming_normal_(layer.weight, nonlinearity='relu')
             self.layers.append(layer)
-        
+
     def forward(self, x):
         for layer in self.layers[:-1]:  # excluding the last layer
             x = torch.nn.functional.relu(layer(x))  # apply ReLU activation using the functional API
@@ -30,7 +31,7 @@ class AdvantageNetwork(nn.Module):
         self.layers = nn.ModuleList()
 
         for i in range(len(layer_dimensions) - 1):  # Subtract 1 to avoid going out of index
-            layer = nn.Linear(layer_dimensions[i], layer_dimensions[i+1])
+            layer = nn.Linear(layer_dimensions[i], layer_dimensions[i + 1])
             nn.init.kaiming_normal_(layer.weight, nonlinearity='relu')
             self.layers.append(layer)
 
@@ -47,7 +48,6 @@ class PPOBuffer:
         self.actions = []
         self.rewards = []
         self.logprobs = []
-
 
     def clear(self):
         self.states.clear()
@@ -71,17 +71,17 @@ class PPO(Training_instance):
         self.buffer = PPOBuffer()  # Assuming ReplayBuffer implementation is similar to RolloutBuffer in reference
 
     def init_policy(self) -> nn.Module:
-        input_dimension = self.architecture['board_width'] * self.architecture['board_length']
+        input_dimension = self.architecture['board_width'] * self.architecture['board_length'] * 4
         policy_dimensions = [input_dimension] + self.architecture['actor']['actor_hidden_layers'] + [input_dimension]
         advantage_dimensions = [input_dimension] + self.architecture['critic']['critic_hidden_layers'] + [1]
         return PolicyNetwork(policy_dimensions), AdvantageNetwork(advantage_dimensions)
-    
+
     def select_action(self, observation: Observation, invalid_count) -> int:
-        state = torch.tensor(observation.board, dtype=torch.float32).view(-1).to(self.device)
+        state = torch.tensor(observation.get_one_hot_encoding(), dtype=torch.float32).view(-1).to(self.device)
         action_probs = self.actor(state)
         action_distribution = Categorical(action_probs)
         if invalid_count >= self.hyperparameters['invalid_action_limit']:
-            action = torch.tensor(observation.get_random_valid_action()).to(self.device)     
+            action = torch.tensor(observation.get_random_valid_action()).to(self.device)
         else:
             action = action_distribution.sample()
         action_log_prob = action_distribution.log_prob(action)
@@ -98,7 +98,7 @@ class PPO(Training_instance):
             discounted_reward = reward + (self.hyperparameters["gamma"] * discounted_reward)
             rewards.insert(0, discounted_reward)
         moving_loss = 0
-        
+
         # Normalizing the rewards
         rewards = torch.tensor(rewards, dtype=torch.float32).to(self.device)
         rewards = (rewards - rewards.mean()) / (rewards.std() + 1e-7)
@@ -110,7 +110,6 @@ class PPO(Training_instance):
 
         # Optimize policy for K epochs
         for _ in range(self.hyperparameters['K_epochs']):
-
             # Evaluating old actions and values
             action_probs = self.actor(old_states)
             state_values = self.critic(old_states)
@@ -126,13 +125,13 @@ class PPO(Training_instance):
 
             # torch.nninding Surrogate Loss
             surr1 = ratios * advantages
-            surr2 = torch.clamp(ratios, 1-self.clip_epsilon, 1+self.clip_epsilon) * advantages
+            surr2 = torch.clamp(ratios, 1 - self.clip_epsilon, 1 + self.clip_epsilon) * advantages
             actor_loss = -torch.min(surr1, surr2)
-            
+
             # final loss of clipped objective PPO
             mse_loss = nn.MSELoss()
             critic_loss = mse_loss(state_values.squeeze(), rewards)
-            
+
             entropy_bonus = 0.01 * dist_entropy
 
             loss = actor_loss + 0.5 * critic_loss - entropy_bonus
@@ -148,11 +147,11 @@ class PPO(Training_instance):
         # clear buffer
         self.buffer.clear()
         return moving_loss
-        
+
     def run(self):
         shape = (self.architecture['board_length'], self.architecture['board_width'])
         env = SeaBattleEnv(shape, self.reward_function)
-        
+
         for episode in range(self.training['num_episodes']):
             obs = env.reset()
             done = False
@@ -162,21 +161,18 @@ class PPO(Training_instance):
                 action = self.select_action(obs, invalid_action_count)  # Updated method name to select_action
                 if invalid_action_count >= self.hyperparameters['invalid_action_limit']:
                     invalid_action_count = 0
-                
+
                 new_obs, reward, done, info = env.step(action)
-                
+
                 # save data in buffer
                 self.buffer.rewards.append(reward)
 
-                
                 if reward == self.reward_function[GuessResult.INVALID_GUESS]:
                     invalid_action_count += 1
-                
+
                 obs = new_obs
 
             # Update the policy
             loss = self.update()
             if episode % 20 == 0:
                 self.update_tensorboard(episode, env, loss, eps=None)
-
-
