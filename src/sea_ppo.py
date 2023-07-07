@@ -71,7 +71,7 @@ class PPO(Training_instance):
         self.buffer = PPOBuffer()  # Assuming ReplayBuffer implementation is similar to RolloutBuffer in reference
 
     def init_policy(self) -> nn.Module:
-        input_dimension = self.architecture['board_width'] * self.architecture['board_length'] * 4
+        input_dimension = self.architecture['board_width'] * self.architecture['board_length'] * 3
         policy_dimensions = [input_dimension] + self.architecture['actor']['actor_hidden_layers'] + [input_dimension]
         advantage_dimensions = [input_dimension] + self.architecture['critic']['critic_hidden_layers'] + [1]
         return PolicyNetwork(policy_dimensions), AdvantageNetwork(advantage_dimensions)
