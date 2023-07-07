@@ -1,0 +1,5 @@
+models = ["models/sea2_ppo_v0.1.2.pth", "models/sea2_a2c_v0.2.2.pth", "models/sea2_dqn_v0.2.0.pth"]
+num_games = 4000
+test_random_policy = true
+board_length = 6
+board_width = 6
