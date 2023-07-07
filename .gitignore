@@ -7,3 +7,4 @@ src/__pycache__/
 .idea/vcs.xml
 .idea/sea_battle_ai.iml
 .idea/modules.xml
+/.idea/misc.xml

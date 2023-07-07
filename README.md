@@ -34,7 +34,7 @@ To run the scripts, you need to have Python installed on your system. The script
 To train the AI agents, you need to run the `trainer.py` script. Make sure to specify the configuration file using the `--config` flag.
 
 ```shell
-python bin/trainer.py --config config/config-file.toml
+python scripts/trainer.py --config config/config-file.toml
 ```
 
 Replace `config-file.toml` with the path to your desired configuration file.
@@ -44,7 +44,7 @@ Replace `config-file.toml` with the path to your desired configuration file.
 To evaluate the trained AI agents, you can run the `evaluator.py` script. Specify the model path using the `--model_path` flag and the configuration file using the `--config` flag.
 
 ```shell
-python bin/evaluator.py --model_path models/sea2_dqn_v0.2.0.pth --config config/dqn_v0.2.0.toml
+python scripts/evaluator.py --model_path models/sea2_dqn_v0.2.0.pth --config config/dqn_v0.2.0.toml
 ```
 
 Replace `models/sea2_dqn_v0.2.0.pth` with the path to your trained model file, and `config/dqn_v0.2.0.toml` with the path to your configuration file.
