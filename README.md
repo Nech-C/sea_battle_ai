@@ -92,7 +92,7 @@ num_episodes = 80000
 ```
 ## Agent Evaluation Results
 
-The following table shows the average evaluation results for each agent algorithm. Each agent was tested on 4000 games, and it's important to note that the agents didn't receive the same games.
+The following table shows the average evaluation results for each agent algorithm. Each agent was tested on 4000 games on a 6 by 6 board. It's important to note that the agents didn't receive the same games.
 
 | Algorithm | Average Steps | Average Number of Guesses | Average Number of Effective Guesses | Average Reward | Average Number of Being Stuck |
 |-----------|---------------|--------------------------|------------------------------------|----------------|------------------------------|
@@ -100,6 +100,13 @@ The following table shows the average evaluation results for each agent algorith
 | A2C       | 28.2590       | 20.9315                  | 15.7073                            | -4.72          | 0.08                         |
 | DQN       | 18.0428       | 18.0230                  | 11.4830                            | 3.25           | 0.00                         |
 
-Please note that these results are the averages of the evaluation metrics obtained from testing each agent on 4000 games. The metrics include the average number of steps taken, the average number of guesses made, the average number of effective guesses, the average reward received, and the average number of times the agent got stuck.
+Please note that these results are the averages of the evaluation metrics obtained from testing each agent on 4000 games. The board size used for evaluation is 6 by 6.
+
+The model versions used for evaluation are as follows:
+- PPO: `models/sea2_ppo_v0.1.2.pth`
+- A2C: `models/sea2_a2c_v0.2.2.pth`
+- DQN: `models/sea2_dqn_v0.2.0.pth`
+
+The metrics include the average number of steps taken, the average number of guesses made, the average number of effective guesses, the average reward received, and the average number of times the agent got stuck.
 
 
