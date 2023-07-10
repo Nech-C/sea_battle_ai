@@ -85,7 +85,7 @@ def main():
     config = toml.load(args.test_config)
     models = load_models(config['models'])
     print(models)
-    env = SeaBattleEnv(shape=(config["board_length"], config["board_width"]))
+    env = SeaBattleEnv(board_shape=(config["board_length"], config["board_width"]))
     for model in models:
         avg_step, avg_guesses, avg_eff_guesses, avg_reward, avg_stuck = eval_model(env, model, config["num_games"])
         print(model)

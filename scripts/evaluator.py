@@ -170,7 +170,7 @@ def main():
     model = load_model(args.model_path, model['type'])
 
     shape = (config['architecture']['board_length'], config['architecture']['board_width'])
-    env = SeaBattleEnv(shape=shape)
+    env = SeaBattleEnv(board_shape=shape)
     while True:
         print("1. evaluate agent\n2. evaluate random policy\n3. play Sea Battle with agent assistance")
         choice = int(input("Choose an option (1, 2, or 3): "))

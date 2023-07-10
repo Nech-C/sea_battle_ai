@@ -69,7 +69,7 @@ class Observation:
 
 
 class SeaBattleEnv(gym.Env):
-    def __init__(self, shape=(7, 7), reward_func=REWARD_MAPPING):
+    def __init__(self, board_shape=(7, 7), reward_func=REWARD_MAPPING, placement: List[Dict[str, Any]] = None):
         super(SeaBattleEnv, self).__init__()
         self.last_guess_correct = None
         self.ships = None
@@ -78,8 +78,8 @@ class SeaBattleEnv(gym.Env):
         self.effective_guesses = None
         self.tot_guesses = None
         self.step_count = None
-        self.shape = shape
-        self.reset()
+        self.shape = board_shape
+        self.reset(placement)
         self.reward_function = reward_func
 
     def observation(self):
@@ -111,7 +111,7 @@ class SeaBattleEnv(gym.Env):
         self.tot_reward += self.reward_function[result]
         return self.observation(), self.reward_function[result], result == GuessResult.GAME_OVER, info
 
-    def reset(self):
+    def reset(self, placement: List[Dict[str, Any]]):
         self.step_count = 0
         self.tot_guesses = 0
         self.effective_guesses = 0
@@ -123,9 +123,11 @@ class SeaBattleEnv(gym.Env):
             {"size": 2, "location": [], "hits": 0},
             {"size": 1, "location": [], "hits": 0}
         ]
-        self.place_ships_randomly()
         self.last_guess_correct = False
-
+        if placement is None:
+            self.place_ships_randomly()
+        else:
+            ...
         return self.observation()
 
     def render(self):
@@ -199,6 +201,24 @@ class SeaBattleEnv(gym.Env):
                 if self.is_valid_location(row, col, ship["size"], orientation):
                     ship["location"] = self.place_ship(row, col, ship["size"], orientation)
                     placed = True
+
+    def load_ship_placement(self, placement: List[Dict[str, Any]]):
+        """
+        Load the ship placement onto the board.
+
+        Args:
+        placement (List[Dict[str, Any]]): A list of ship placements. Each ship placement is a dictionary with keys 'size', 'location', and 'hits'.
+        """
+        self.ships = placement
+
+        # Clear the board
+        self.board = np.full(self.shape, CELL_MAPPING['empty'])
+
+        # Place the ships on the board
+        for ship in self.ships:
+            for location in ship['location']:
+                row, col = location
+                self.board[row, col] = CELL_MAPPING['ship']
 
     def is_game_over(self) -> bool:
         return all(ship["hits"] == len(ship["location"]) for ship in self.ships)
